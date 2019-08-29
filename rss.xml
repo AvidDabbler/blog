@@ -1,23 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 26 Aug 2019 03:38:51 GMT</lastBuildDate><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[This post will go through the following steps in a logical way: Hosting your files through AWS s3. Connecting your files to be accessable…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;This post will go through the following steps in a logical way:&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>RSS for Node</generator><lastBuildDate>Thu, 29 Aug 2019 01:55:19 GMT</lastBuildDate><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when hosting a static website, but at the end of the day I will be going the S3 / Cloudfront way of hosting and routing. This post will go through the following steps in a logical way:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Hosting your files through AWS s3.&lt;/li&gt;
-&lt;li&gt;Connecting your files to be accessable through url via Cloudfront.&lt;/li&gt;
+&lt;li&gt;Hosting your files through AWS S3.&lt;/li&gt;
+&lt;li&gt;Connecting your files to be accessible through url via Cloudfront.&lt;/li&gt;
 &lt;li&gt;Use CodeBuild to connect your files to a GitHub Repo.&lt;/li&gt;
 &lt;li&gt;Configure a custom domain to your project.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Full Disclosure: I pulled together a number of resources for this post, but the majority of this post came from &lt;a href=&quot;https://medium.com/faun/deploy-static-website-to-amazon-s3-from-github-repository-3f1245d2a780&quot;&gt;here&lt;/a&gt;. I will always try to give credit where it is due and &lt;a href=&quot;https://medium.com/@aashari&quot;&gt;Andi Ashari&lt;/a&gt; put together a great rundown of navigating the hosting and managing a website on AWS.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h2&gt;&lt;strong&gt;&lt;em&gt;MAKE SURE THAT YOU ARE CREATING THESE ALL WITHIN THE SAME REGION.&lt;/em&gt;&lt;/strong&gt;&lt;/h2&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Set Up Your S3 Bucket&lt;/h2&gt;
+&lt;p&gt;So the first thing that you need to know about setting up your website is where you need to store these files. &lt;a href=&quot;https://s3.console.aws.amazon.com/s3&quot;&gt;&lt;strong&gt;S3&lt;/strong&gt;&lt;/a&gt; is the most common way to store file on AWS securely. Think of S3 as your secure Dropbbox. Or that Dropbox is using S3? Anyway, S3 is going to be where you are going to be storing all of your static website files. In this section we are just going to focus on getting the bucket made public. You wont need to worry about getting anything moved over into the bucket as we will configure it to sync with your GitHub in the next section. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Go to your AWS Console and go to the S3 section of AWS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. create bucket with website name minus &lt;em&gt;www&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Go inside the bucket and the make public by going to the permissions tab and then click the &lt;em&gt;Block Public Access&lt;/em&gt; button then click edit and turn them all off. Then save.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. In the same permissions tab click the &lt;em&gt;Bucket Policy&lt;/em&gt; button. Then paste the following rule in the code editor and configuring it for the bucket that you just created.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;{
+    &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;,
+    &amp;quot;Statement&amp;quot;: [
+        {
+            &amp;quot;Sid&amp;quot;: &amp;quot;PublicReadGetObject&amp;quot;,
+            &amp;quot;Effect&amp;quot;: &amp;quot;Allow&amp;quot;,
+            &amp;quot;Principal&amp;quot;: &amp;quot;*&amp;quot;,
+            &amp;quot;Action&amp;quot;: [
+                &amp;quot;s3:GetObject&amp;quot;
+            ],
+            &amp;quot;Resource&amp;quot;: [
+                &amp;quot;arn:aws:s3:::example-bucket/*&amp;quot;
+            ]
+        }
+    ]
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;5. In that same window go to the properties tab and then click &lt;em&gt;Static Website Hosting&lt;/em&gt;. Click &lt;em&gt;Use this Bucket to Host a Website&lt;/em&gt; set the index document to &lt;em&gt;index.html&lt;/em&gt; or whatever you set it up as in your static site. Click Save.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;Create CodePipeline&lt;/h2&gt;
+&lt;p&gt;Now, we need some file to host. These files have to come from somewhere. Sure you could have just uploaded some files to your S3 and called it a night, but you want to put the work in you want to be able to just forget that you have to do that. You need &lt;a href=&quot;https://aws.amazon.com/codepipeline/&quot;&gt;&lt;strong&gt;CodePipeline&lt;/strong&gt;&lt;/a&gt;. CodePipeline is a great way to work with your code from a project that you want to host somewhere on GitHub, but also store for hosting on AWS. What this next section will do is help you manage the connection between your GitHub branch and your S3 so that whenever you make a change to your specified branch it will push out an update to your S3 bucket where you have your website files hosted. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Name the pipeline after your bucket for simplicity.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. new service role&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Advanced settings&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;- Custom Location (Select the S3 bucket that you want to connect to as they need to be in the same location.)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;- Default AWS Managed Key&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Next&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**Set your source provider to GitHub
+**Allow AWS to access GitHub
+**Select the Repository and Branch
+**Use GitHub Webhooks
+**Next
+**If your site is just static files you can just skip build stage, but if it in React or Gatsby you will need to add the build script in here
+**Set Deploy provider to Amazon S3
+**Select the bucket
+**Select extract files before deploy - This will allow for your files to be hosted in a readable format instead of all zipped up in a single file.
+**Next
+**Create Pipeline&lt;/p&gt;
+&lt;h2&gt;Set up AWS Certificate Manager&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;go to Certificate Manager in the AWS console&lt;/li&gt;
+&lt;li&gt;type in walterkjenkins.com and www.walterkjenkins.com&lt;/li&gt;
+&lt;li&gt;copy over CNAME data to domains.google.com&lt;/li&gt;
+&lt;li&gt;wait for validation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Set up CloundFront to connect to S3 Bucket&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Origin Domain Name: select our bucket generated public domain, in this case &lt;strong&gt;&lt;em&gt;www.walterkjenkins.com.s3.amazonaws.com&lt;/em&gt;&lt;/strong&gt;, but you could set it up as &lt;strong&gt;&lt;em&gt;%your_site%.s3.amazonaws.com&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Origin Path: leave this blank&lt;/li&gt;
 &lt;li&gt;Origin ID: by default, this field will be auto-generated by CloudFront, you can custom it as you want&lt;/li&gt;
 &lt;li&gt;Restrict Bucket Access: yes&lt;/li&gt;
+&lt;li&gt;alternative CNAME walterkjenkins.com www.walterkjenkins.com&lt;/li&gt;
 &lt;li&gt;Origin Access Identity: Create a New Identity&lt;/li&gt;
 &lt;li&gt;Comment: www.walterkjenkins.com-cloudfront&lt;/li&gt;
 &lt;li&gt;Grant Read Permissions on Bucket: Yes, Update Bucket Policy&lt;/li&gt;
 &lt;li&gt;Default Root Object: index.html&lt;/li&gt;
 &lt;li&gt;Leave the rest filled default value&lt;/li&gt;
 &lt;li&gt;Click Create Distribution&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[AWS and the Three Bears]]></title><description><![CDATA[Intro Getting your site hosted can be a huge hassle. There are a ton of options out there, but if you want to keep costs down choosing the…]]></description><link>https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</guid><pubDate>Sun, 25 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;li&gt;go back to cloudfront&lt;/li&gt;
+&lt;li&gt;edit&lt;/li&gt;
+&lt;li&gt;attach the custom ssl certificate&lt;/li&gt;
+&lt;li&gt;save&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;DNS Configuration&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;go back to domains.google.com&lt;/li&gt;
+&lt;li&gt;add the www and * with the cloudfront.net address&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;Sources:&lt;/h5&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/faun/deploy-static-website-to-amazon-s3-from-github-repository-3f1245d2a780&quot;&gt;Deploy Static Website to Amazon S3 from Github Repository&lt;/a&gt;
+&lt;a href=&quot;https://medium.com/@kyle.galbraith/how-to-host-a-website-on-s3-without-getting-lost-in-the-sea-e2b82aa6cd38&quot;&gt;How to Host a Website on S3 Without Getting Lost in the Sea&lt;/a&gt;
+&lt;a href=&quot;https://medium.com/@aashari&quot;&gt;Deploy Static Website to Amazon S3 from Github Repository&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[AWS and the Three Bears]]></title><description><![CDATA[Intro Getting your site hosted can be a huge hassle. There are a ton of options out there, but if you want to keep costs down choosing the…]]></description><link>https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</guid><pubDate>Sun, 25 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;Getting your site hosted can be a huge hassle. There are a ton of options out there, but if you want to keep costs down choosing the next draggy-droppy solutions can get expensive and you may not want to chose a newer technology as you may have some problems (as I did) when something goes wrong. However, there is rarely the documentation that clearly spells out ONE way of doing things (but really that’s not how we learn anyway is it?).&lt;/p&gt;
 &lt;p&gt;When I first started out trying to figure out how to host my portfolio site and blog I did a ton of research on how I could host the damn thing and what I wanted to do all while learning a little about hosting. The initial goals of the project were as follows:&lt;/p&gt;
 &lt;ol&gt;
