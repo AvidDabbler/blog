@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>RSS for Node</generator><lastBuildDate>Thu, 29 Aug 2019 01:55:19 GMT</lastBuildDate><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>RSS for Node</generator><lastBuildDate>Mon, 02 Sep 2019 21:26:07 GMT</lastBuildDate><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when hosting a static website, but at the end of the day I will be going the S3 / Cloudfront way of hosting and routing. This post will go through the following steps in a logical way:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hosting your files through AWS S3.&lt;/li&gt;
@@ -7,14 +7,16 @@
 &lt;li&gt;Configure a custom domain to your project.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;h2&gt;&lt;strong&gt;&lt;em&gt;MAKE SURE THAT YOU ARE CREATING THESE ALL WITHIN THE SAME REGION.&lt;/em&gt;&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;em&gt;MAKE SURE THAT YOU ARE CREATING THESE ALL WITHIN THE SAME REGION.&lt;/em&gt;&lt;/h2&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;Set Up Your S3 Bucket&lt;/h2&gt;
-&lt;p&gt;So the first thing that you need to know about setting up your website is where you need to store these files. &lt;a href=&quot;https://s3.console.aws.amazon.com/s3&quot;&gt;&lt;strong&gt;S3&lt;/strong&gt;&lt;/a&gt; is the most common way to store file on AWS securely. Think of S3 as your secure Dropbbox. Or that Dropbox is using S3? Anyway, S3 is going to be where you are going to be storing all of your static website files. In this section we are just going to focus on getting the bucket made public. You wont need to worry about getting anything moved over into the bucket as we will configure it to sync with your GitHub in the next section. &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. Go to your AWS Console and go to the S3 section of AWS&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2. create bucket with website name minus &lt;em&gt;www&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;3. Go inside the bucket and the make public by going to the permissions tab and then click the &lt;em&gt;Block Public Access&lt;/em&gt; button then click edit and turn them all off. Then save.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;4. In the same permissions tab click the &lt;em&gt;Bucket Policy&lt;/em&gt; button. Then paste the following rule in the code editor and configuring it for the bucket that you just created.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;So the first thing that you need to know about setting up your website is where you need to store these files. &lt;a href=&quot;https://s3.console.aws.amazon.com/s3&quot;&gt;S3&lt;/a&gt; is the most common way to store file on AWS securely. Think of S3 as your secure Dropbbox. Or that Dropbox is using S3? Anyway, S3 is going to be where you are going to be storing all of your static website files. In this section we are just going to focus on getting the bucket made public. You wont need to worry about getting anything moved over into the bucket as we will configure it to sync with your GitHub in the next section. &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Go to your AWS Console and go to the S3 section of AWS&lt;/li&gt;
+&lt;li&gt;create bucket with website name minus &lt;em&gt;www&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Go inside the bucket and the make public by going to the permissions tab and then click the &lt;em&gt;Block Public Access&lt;/em&gt; button then click edit and turn them all off. Then save.&lt;/li&gt;
+&lt;li&gt;In the same permissions tab click the &lt;em&gt;Bucket Policy&lt;/em&gt; button. Then paste the following rule in the code editor and configuring it for the bucket that you just created.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;{
     &amp;quot;Version&amp;quot;: &amp;quot;2012-10-17&amp;quot;,
     &amp;quot;Statement&amp;quot;: [
@@ -31,60 +33,437 @@
         }
     ]
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;5. In that same window go to the properties tab and then click &lt;em&gt;Static Website Hosting&lt;/em&gt;. Click &lt;em&gt;Use this Bucket to Host a Website&lt;/em&gt; set the index document to &lt;em&gt;index.html&lt;/em&gt; or whatever you set it up as in your static site. Click Save.&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;In that same window go to the properties tab and then click &lt;em&gt;Static Website Hosting&lt;/em&gt;. Click &lt;em&gt;Use this Bucket to Host a Website&lt;/em&gt; set the index document to &lt;em&gt;index.html&lt;/em&gt; or whatever you set it up as in your static site. Click Save.&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h2&gt;Create CodePipeline&lt;/h2&gt;
-&lt;p&gt;Now, we need some file to host. These files have to come from somewhere. Sure you could have just uploaded some files to your S3 and called it a night, but you want to put the work in you want to be able to just forget that you have to do that. You need &lt;a href=&quot;https://aws.amazon.com/codepipeline/&quot;&gt;&lt;strong&gt;CodePipeline&lt;/strong&gt;&lt;/a&gt;. CodePipeline is a great way to work with your code from a project that you want to host somewhere on GitHub, but also store for hosting on AWS. What this next section will do is help you manage the connection between your GitHub branch and your S3 so that whenever you make a change to your specified branch it will push out an update to your S3 bucket where you have your website files hosted. &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. Name the pipeline after your bucket for simplicity.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2. new service role&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;3. Advanced settings&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;- Custom Location (Select the S3 bucket that you want to connect to as they need to be in the same location.)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;- Default AWS Managed Key&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;4. Next&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;**Set your source provider to GitHub
-**Allow AWS to access GitHub
-**Select the Repository and Branch
-**Use GitHub Webhooks
-**Next
-**If your site is just static files you can just skip build stage, but if it in React or Gatsby you will need to add the build script in here
-**Set Deploy provider to Amazon S3
-**Select the bucket
-**Select extract files before deploy - This will allow for your files to be hosted in a readable format instead of all zipped up in a single file.
-**Next
-**Create Pipeline&lt;/p&gt;
-&lt;h2&gt;Set up AWS Certificate Manager&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;go to Certificate Manager in the AWS console&lt;/li&gt;
-&lt;li&gt;type in walterkjenkins.com and www.walterkjenkins.com&lt;/li&gt;
-&lt;li&gt;copy over CNAME data to domains.google.com&lt;/li&gt;
-&lt;li&gt;wait for validation&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Set up CloundFront to connect to S3 Bucket&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Origin Domain Name: select our bucket generated public domain, in this case &lt;strong&gt;&lt;em&gt;www.walterkjenkins.com.s3.amazonaws.com&lt;/em&gt;&lt;/strong&gt;, but you could set it up as &lt;strong&gt;&lt;em&gt;%your_site%.s3.amazonaws.com&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;p&gt;Now, we need some file to host. These files have to come from somewhere. Sure you could have just uploaded some files to your S3 and called it a night, but you want to put the work in you want to be able to just forget that you have to do that. You need &lt;a href=&quot;https://aws.amazon.com/codepipeline/&quot;&gt;CodePipeline&lt;/a&gt;. CodePipeline is a great way to work with your code from a project that you want to host somewhere on GitHub, but also store for hosting on AWS. What this next section will do is help you manage the connection between your GitHub branch and your S3 so that whenever you make a change to your specified branch it will push out an update to your S3 bucket where you have your website files hosted. &lt;/p&gt;
+&lt;h2&gt;Choose Pipeline Settings&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Name the pipeline after your bucket for simplicity.&lt;/li&gt;
+&lt;li&gt;new service role&lt;/li&gt;
+&lt;li&gt;Advanced settings:&lt;/li&gt;
+&lt;li&gt;Custom Location (Select the S3 bucket that you want to connect to as they need to be in the same location.)&lt;/li&gt;
+&lt;li&gt;Default AWS Managed Key&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/760b42c8fa231490a544a1bf9ea42061/71a9e/pipeline1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 97.83845278725826%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABYlAAAWJQFJUiTwAAAC5klEQVQ4y31UyW4bMRTz/39Iz+05RXpqCgS9pgmaxFvsGY9nk2bfWVJeEgdJDRDSyNITHx+fZt4uQLDfI0oSJGmKbRBi7YcIwtiN/j7GZhdht4/g7XbYeD72UYQ4Sd2Z+B1md/f32HKTzTIUZYnN1sPj8wLP84Ubn57nePj7iChOkHGPsRZZnn+KmR8EjpkCaiHhLS/rNRbLJSIyqaoKRVGgrmu0bYumaVAL/D5BayKjGLPdMd1TwJwIGUhj13VntO0BXddjHMcLTNPkLhH7WRCGlwHJZut52DJ1bSjJsOTtDpzXdYN+GBze/hqydwEldPwmoNKLU8MUKjRkM3HzOB0wTRcxHLPpuNicGCbGuPSs2DFoVNR42Bk8eiE2poKft4iaEXELZO2AlJd7/oFE6fQtnRSaG2koVmKngKpiTmZRViBvOpiyRsx5WlRutDysIrXSlOj7Hl1/0PSs4SnV0yh4tJFHHW9vb3Fz8xPfr67w7etXXF9fw6dEwzB+ruFrQAWjz/IK662PMIzcBqWUH7U9QfvFaKR+w/sqn5kp7ezAMKUv5c2E3aDqVvSaUi0/gf6TO5wP36fsfEgrxXHsIDMPsgm1GohpHJxmWhuOayPnVX0sylvtNNeNqqBYSniJLn1kbtv08E0JP6UbygYpv9O6h2H1c/rTZvYyoDTQYctxtX5hAQ4PRyJfyp9Vh3lAS20CLPcpVqHFNimwLxmYjsg+YqielB4SuXK92rh0VdW2Z2oDC0BU/ehGgTZFyf3W2o8CFu6BMMa6oPoN1E2aSavJVXV0lxz75f+2SWhidckq4PuXWARZ6bQyzYCSragLdTBlh+nCw4PRukpfFOXQKdxYt3gOUvxZbPC0DTHfxVjtDTy2oW17V/ml9OWzl1Jb6Vt2lKAb3jE8eZH6JTSzmFrqZ6rGtWDKllTrSd+McO+k9CaK+W9kmwdY7rkw9nk8QjawF9+v0HdItiFfcvPrC8zdD2R1h38B3fyTwUK8vgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;choose pipeline settings&quot;
+        title=&quot;choose pipeline settings&quot;
+        src=&quot;/static/760b42c8fa231490a544a1bf9ea42061/b9e4f/pipeline1.png&quot;
+        srcset=&quot;/static/760b42c8fa231490a544a1bf9ea42061/cf440/pipeline1.png 148w,
+/static/760b42c8fa231490a544a1bf9ea42061/d2d38/pipeline1.png 295w,
+/static/760b42c8fa231490a544a1bf9ea42061/b9e4f/pipeline1.png 590w,
+/static/760b42c8fa231490a544a1bf9ea42061/71a9e/pipeline1.png 879w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Add Source Stage&lt;/h3&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Click Next&lt;/li&gt;
+&lt;li&gt;Set your source provider to GitHub&lt;/li&gt;
+&lt;li&gt;Allow AWS to access GitHub&lt;/li&gt;
+&lt;li&gt;Select the Repository and Branch that you are wanting to publish.&lt;/li&gt;
+&lt;li&gt;Select ‘Use GitHub Webhooks’&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/2f382/pipeline2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.99827882960413%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB2UlEQVQ4y41U7Y6bMBDM+79H36K/+wJtT6raqndKCAEDNhiD+ZzuLCF3qXJtLY3WeGE8O7vJIYSAylpY5xTee6SmxPM5R5oXGrPS4lI6lFWFzBgUEht5r26aO7TCdRjHEZc8VxRlCd+2OCUJvv/4iZfjUeMjAj6/hRK2QjiMgxIcTydVuicrIeFl8zxjmkbd/w1URzGHYRiQFwWMqNtvZ8KYQspvESXfx3iHeI38llhX6BntUkKWS0JX16pwJ3TiKS+gzyQnWskx71yte+b6vkcnuCmk2bsvmxctyrKCEeV8cSt7wiila5QSB+KqkM93hDcyz5JFYdcg9xcYlyF3F+nwGVmVIrMpLhJtEHt6i2WdsS9a8JBwi7WMTgLbVLBe1AcZp765IQxSevSYl1n9e5dwLzl0HepazkQtEeNm/LKsN0wTyVbFPwmZqKVBVMDFj5ZlecW6qpfL/xA23EvinHHYjcymkxnrxPSIjuPCjkoFnDs2a1urnj/wcCO0IeIpKfHlV4KvLym+JQZHG1D0szYtOac6GSQhFqHshul1Dv8suZHb6y7Ctr3CcR96PeN4hKvC7dcR0OXP8OYEL5XcE76ZxeYdMMc/Ec4oVeZFherTB7jPH9EOM34DTXw1DzO/xOMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Add Source Stage&quot;
+        title=&quot;Add Source Stage&quot;
+        src=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/b9e4f/pipeline2.png&quot;
+        srcset=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/cf440/pipeline2.png 148w,
+/static/547b2b34a6952cfe9846b5ca910498f4/d2d38/pipeline2.png 295w,
+/static/547b2b34a6952cfe9846b5ca910498f4/b9e4f/pipeline2.png 590w,
+/static/547b2b34a6952cfe9846b5ca910498f4/f9b6a/pipeline2.png 885w,
+/static/547b2b34a6952cfe9846b5ca910498f4/2f382/pipeline2.png 1162w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;9&quot;&gt;
+&lt;li&gt;Click Next&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;OPTIONAL: Add Build Stage&lt;/h3&gt;
+&lt;p&gt;If your site is just static files you can just skip build stage, but if it in React or Gatsby you will need to add the build script in here&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/16abd/pipeline3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 34.787234042553195%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABYlAAAWJQFJUiTwAAABC0lEQVQoz32RWXKEMAxEuf8xcoocIAfIf4qZTKoGMF5ZjMEsHckEslRlPrpAlvWklrMYI6xz0MbAWIumbaGtw/UuUAiJj6JGpQyEdlDGopYSUql076/arkO2rmsCSa0TlBOKCt7yHPnlksT5ru9TwSNxbbZtGxTB7mVJk9kzyVAhBIZhwLosYCfzPP9SnOPXeUQI4RvINt5vt2SFYTwNN7Fk3fsBnqD87f1wxr33GAgSwng2cwxcCchWa4K5pkldGLhPMGOaIqa4iwuPOIwj/U/p3rICcdn2CReyw4/COvbwn9iBpoepRE0ODEpaUyEt9Osz7MsTWh8ISI/yc6mPFn44OHTGRqJRVbr3CdqTGAC3E2eWAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;build stage&quot;
+        title=&quot;build stage&quot;
+        src=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/b9e4f/pipeline3.png&quot;
+        srcset=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/cf440/pipeline3.png 148w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/d2d38/pipeline3.png 295w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/b9e4f/pipeline3.png 590w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/f9b6a/pipeline3.png 885w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/16abd/pipeline3.png 940w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Add Deploy Stage&lt;/h3&gt;
+&lt;ol start=&quot;10&quot;&gt;
+&lt;li&gt;Set Deploy provider to Amazon S3. Then select the bucket where you want your site to be located in.&lt;/li&gt;
+&lt;li&gt;Select extract files before deploy - This will allow for your files to be hosted in a readable format instead of all zipped up in a single file.&lt;/li&gt;
+&lt;li&gt;Next&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/be733/pipeline4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 73.76014427412083%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAYAAADkmO9VAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB+0lEQVQ4y42UaW7bMBCFff9r9CD91wsEQQHDjm05tkVtFBdLsha/zqOkgGnaogIeOFr4zeMMqU1tDPKyRKk1dF3DOofkluHwnuKSZniTURUlrrlGWVVQWYYsz2GshY3lbJi70QLM8gKFfEwgPzwmCba7PXbHBPvDEaqs4JoGtbvD+EZ0h7b+kyrjUMvcDSGpZGV2wpxk2RYtXpIcPw9nvO7P2J5TJHmNc2FwynSIL5XDVfswUpnvoSVhAN6UCg4JpFLb4ZQb7N4V9hdZ9q3AIS1xVBUOEnNUtkXmumUU+QcqcbqppHbHU4LL9QrW03mPopASSN3GaUI/DEGPvg/q+znuHg903ay269C07VJDccim8CYsWYCGjZLCe6nVQGAAfdX6bhxHTJKcczcrKAbS6S1V8Pf7nL1pg4OgJea7uzSKTsdxAi8+C8BVsUM6Z8zlPZ9PTJF4TwidrReffQBjhxwJohpxwJpxOWMk3g8CW4HPJclfgZ6NkbpSBHPisGhcxEaxhv8FtAIJYPmAit2NEZROCfrnkrmxte+khgalOOS2YiNaaQS3SFS02dkaT2NY2R8dsotsitazhsXN6ih2hQVKeUn8Cfh7vIp1DMuXfbk2bD73Zj7D6Qn2xzcYdfoKtMvxM279g9iPIxmrXH4mRVWjUheY1+8wxQ2/AGqZgbJNPf/qAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;Add deploy stage&quot;
+        title=&quot;Add deploy stage&quot;
+        src=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/b9e4f/pipeline4.png&quot;
+        srcset=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/cf440/pipeline4.png 148w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/d2d38/pipeline4.png 295w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/b9e4f/pipeline4.png 590w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/f9b6a/pipeline4.png 885w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/be733/pipeline4.png 1109w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;13&quot;&gt;
+&lt;li&gt;Review the changes and Create Pipeline&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/9a22e/pipeline5.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 137.59630200308166%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAACXBIWXMAABYlAAAWJQFJUiTwAAACdUlEQVRIx61VybLTMBDM1/MJnPgNrhS5J4dQFMUBXki8L7IsO3bsbMP0xAm2Yz1eKFzVpTiSe0Y9PdKsqipSWUa5MaQZRVmS0ob8RFPKY5hqQaw0JVlOqVIUJQml/A3WmqIYYLZjwiCKZFGSplTudvL+9dt3ivm94HdTlILcFPfA+A3CMYQw7iJiMQiRhed7FDJxEIbkep6suWdUFg+ZDTIM45gSJsmLa1Sd5+T7PjmuS57nU56zFDy33++ptgBzVV3TDBpiayAEEaJIlqmiJGEJOMDlcqHz+Uyn08kKzB8Oh2uGyERpfU8bhAlkYNJnHhALITS7iSqEPEasn+8HZFj8mrci2+URwIfycObX4fKHEPvuVwmECAJSw0VaLpc0n89psVjQarVifJH/b0Q3DAhNVwzTKwqQd75EABG+aQSQZMoyYpsHwl0pEvzabAQ/fr6IdbAOWYMMASbBcwPCfpYpVz5mO8GL2CK2czwerTidjtS27TQhslCcZRjFXIxmIPzUY9WwnyFIG46IqH3xbXiVEFqhM2DUcTX/mTDi7aKL/hshbHN+RbepB+036UMZe0Gwpu51yiTuh8OIUPqYLbN1HDm2to4rB3A/4AN6309uGQjDSOC6nvQzvIaKo1A2NNxFVh/qTPOCdiD60z7sj6nK7n38VpTj1htruNlu6WW9lo653i3FX2HVMAgC0RBXAU5uaNR2nWMD2tSqoeluNczDX+fuGrABOqJwll4uSOu8W3x5U7fg9MaJY+0UxUWBYZ/qFIb1tIGZUWlU73ZSj1HX3TWqfNrHa6oSx24b6FhaKotLHwH98HqRqc8fSH98R/rTe/oNEGdxhhO0esgAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;review the changes and click next&quot;
+        title=&quot;review the changes and click next&quot;
+        src=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/b9e4f/pipeline5.png&quot;
+        srcset=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/cf440/pipeline5.png 148w,
+/static/27e6fd054d28c13d603f7c8dea8becc5/d2d38/pipeline5.png 295w,
+/static/27e6fd054d28c13d603f7c8dea8becc5/b9e4f/pipeline5.png 590w,
+/static/27e6fd054d28c13d603f7c8dea8becc5/9a22e/pipeline5.png 649w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;14&quot;&gt;
+&lt;li&gt;Once the pipeline has finished syncing go to the management console and head back over to your S3 bucket. When you click on your bucket you should see all the files that you were already hosting in GitHub, but in your S3 bucket. So now if you make a change to your GitHub they will be reflected in your bucket. Feel free to test this out by making some changes to your readMe.md file and then check your readMe.md&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Set up CloundFront to connect to S3 Bucket Part I&lt;/h2&gt;
+&lt;p&gt;So now that we have the place where we are going to store your data setup and have figured out how to make sure changes are easily pushed to the S3 bucket. We need to figure out how we are going to how we are going to securely route to those files via URL. We are going to be using an AWS service called &lt;a href=&quot;https://aws.amazon.com/cloudfront/&quot;&gt;CloudFront&lt;/a&gt;. What this service allows you to do is route via a CloudFront URL to your S3 bucket. So there will be a CloudFront URL associated with you site, but we will be using that information to reroute to your own custom domain in the future. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A quick note. During this section we will be creating a new certificate in this section that will take you between CloudFront and Certificate Manager. Do not close the CloudFront tab otherwise you will have to start over.&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;In the Management Console navigate to the the CloudFront service. On the main page in the top left click ‘Create Distribution’. From there you will click ‘Get Started’ under the web section. &lt;/li&gt;
+&lt;li&gt;Origin Domain Name: select our bucket that you are now hosting your site files in the dropdown.&lt;/li&gt;
 &lt;li&gt;Origin Path: leave this blank&lt;/li&gt;
 &lt;li&gt;Origin ID: by default, this field will be auto-generated by CloudFront, you can custom it as you want&lt;/li&gt;
-&lt;li&gt;Restrict Bucket Access: yes&lt;/li&gt;
-&lt;li&gt;alternative CNAME walterkjenkins.com www.walterkjenkins.com&lt;/li&gt;
+&lt;li&gt;Restrict Bucket Access: Yes&lt;/li&gt;
 &lt;li&gt;Origin Access Identity: Create a New Identity&lt;/li&gt;
-&lt;li&gt;Comment: www.walterkjenkins.com-cloudfront&lt;/li&gt;
 &lt;li&gt;Grant Read Permissions on Bucket: Yes, Update Bucket Policy&lt;/li&gt;
-&lt;li&gt;Default Root Object: index.html&lt;/li&gt;
+&lt;li&gt;Comment: www.walterkjenkins.com-cloudfront&lt;/li&gt;
+&lt;li&gt;Alternative CNAME type in your domain with and without the www at the front of your address&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a href=&quot;/56a9128254ec9b05ef8b6d8a05cc7aa5/cloudfront1.png&quot;&gt;S3 Bucket Setup part 1&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;Set up AWS Certificate Manager&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Go to Certificate Manager in the AWS console&lt;/li&gt;
+&lt;li&gt;Type in the domain name that you have purchased with and without www at the beginning.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e6866a604d7fbff47d8d604280dfad90/ec025/certificate-manager1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.31888798037612%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAABhklEQVQ4y42SCXKDMAxFc/+z9CY9RNOmYTHYwQsGDPhXMtCFgU4880Yisb+/ZF3maYK1Fs45tG2b4jzPOFvxhDlGROIyhh5K1qjrGkopDENA4wPu0iKTBrlyPzw8iqZFqZe45cJ0UH7GOJPgRA611vC+Szcwqg24Co134qNa4rVs8CYcbo8epQ0Q34wQjmhXQRbgErcyk6AbcCdH2epKmD5R2QGFnSB9hB6AZkUHoCLRYZxw+dOfGFNkxxW1oKpqGGOpDQP6fqXrqBqPlvArHf1mjEEIYXH4G178SHmeoyhylEWR8jzLkBF8Gf9vSYBFjDbQTZNEeV327rZYCoGP2yfUo4EhAU1OpZQYx/F8AviVjwQ5LWWDWy4gtYPxA0wX0NMELEOyDNC+Oj536lApmUoV5JQjjxT3iMeKhdkpTwjDeZwnPnzmMKZNLLDBD7PhexZcxHg6OLqe853gBr8cNzw1n+Dv//rWktjLK7XHhXOHz3C0/3AOz5wciu7OPO1wf+GW7vd9AVNPR1RbcrpsAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;enter in your domains&quot;
+        title=&quot;enter in your domains&quot;
+        src=&quot;/static/e6866a604d7fbff47d8d604280dfad90/b9e4f/certificate-manager1.png&quot;
+        srcset=&quot;/static/e6866a604d7fbff47d8d604280dfad90/cf440/certificate-manager1.png 148w,
+/static/e6866a604d7fbff47d8d604280dfad90/d2d38/certificate-manager1.png 295w,
+/static/e6866a604d7fbff47d8d604280dfad90/b9e4f/certificate-manager1.png 590w,
+/static/e6866a604d7fbff47d8d604280dfad90/f9b6a/certificate-manager1.png 885w,
+/static/e6866a604d7fbff47d8d604280dfad90/2d849/certificate-manager1.png 1180w,
+/static/e6866a604d7fbff47d8d604280dfad90/ec025/certificate-manager1.png 1223w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Set up for DNS Validation then click review&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/76d12/certificate-manager2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 45.38653366583541%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAABYlAAAWJQFJUiTwAAABEUlEQVQoz5VSC27FIAzj/sfYXXaHnaCdoKX0AwUKeEn0OrFNb9oiWfyCYwdUrRWH9/A+CI7jQCkFvH/jP6FyOmGsg7Yrls2jEtm2bZimSTDPMxXyUuS6LuScn4KLqxR2GKNxnidtFKninMM4jjDaYBgGmTO01liWRcA5/ZzBRVWtDTFGqcDRWhOEEOAomc8aVWZ1DM7n874lvP603Pu/yTgiKWa7omCn/oZI5Kc4+Y6UEtrjvrpJbqJ75ERjDPZ9R8oXXcqksJCt+kUd2xQ8lKteXT+yVSZkhSv1x1oLux70I4K0g8EuIqnj3B+We8K+J79Fuho8fbOJfsnL6zveBv+c8C/gByr0UIkedHQJPhZ8ACS1wG6P6/H1AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;DNS validation&quot;
+        title=&quot;DNS validation&quot;
+        src=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/b9e4f/certificate-manager2.png&quot;
+        srcset=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/cf440/certificate-manager2.png 148w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/d2d38/certificate-manager2.png 295w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/b9e4f/certificate-manager2.png 590w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/f9b6a/certificate-manager2.png 885w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/2d849/certificate-manager2.png 1180w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/76d12/certificate-manager2.png 1203w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Click Confirm and request&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/1f27a/certificate-manager3.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 57.131079967023915%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAABYlAAAWJQFJUiTwAAABBklEQVQoz52Sa27DIBCEff9T9Cb90Tv0Bq1qpTYxBsx7uku7FnGUKM1KIwxih+HDQykFqzEw1sKSDH3HGMHrXLXWXY/UkFLGqCy+ZofT4hFprpcFel33TWLWm9/SkKLHNE2UzIL7eNFR0lkpbNvW0qaU2phz3o35Br2RzIfanSybuTGE0MSmK6VlFM65Zn43IQ5shJ0UJxvHEWfCoNQMrfXVnguGxxO4OA1j4GScVlI/wnLowUuD974lsX8vb61p5pz2aFAav19dGfajFDMTfvIox56LKz/za/RGIVWYUGFJudT/G/IjxlRgHGE5T3h9/8bL22fTh/K3De/Vzo4Q5FyQaGTx2g9ai2Mus4KdfAAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;request a certificate&quot;
+        title=&quot;request a certificate&quot;
+        src=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/b9e4f/certificate-manager3.png&quot;
+        srcset=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/cf440/certificate-manager3.png 148w,
+/static/f19000a199bd0c0c80525a0b2b21012e/d2d38/certificate-manager3.png 295w,
+/static/f19000a199bd0c0c80525a0b2b21012e/b9e4f/certificate-manager3.png 590w,
+/static/f19000a199bd0c0c80525a0b2b21012e/f9b6a/certificate-manager3.png 885w,
+/static/f19000a199bd0c0c80525a0b2b21012e/2d849/certificate-manager3.png 1180w,
+/static/f19000a199bd0c0c80525a0b2b21012e/1f27a/certificate-manager3.png 1213w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;Once you are on the validation page you are going to need to copy over the ‘Name’ and ‘Value’ text from the validation page over to the DNS area where you bought your domain. This information is important and should be kept confidential because this data is what verifies with aws that your domain is allowed to release the file that you are hosting to that domain that you purchased.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I personally bought my domain from Google Domains, but basically just copy over that information Copy over CNAME data to domains.google.com&lt;/p&gt;
+&lt;p&gt;It is important to note that this url will just be a blank page until you connect it to CloudFront.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/cbacffcdb620c88007818f82bc46973c/adb17/certificate-manager4.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 93.95973154362416%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAACXBIWXMAABYlAAAWJQFJUiTwAAADC0lEQVQ4y3VUTXPUOhDcf8w/orhQxYkUCZBXwIEL3LgSoJKCbHbtzdqWLFmy/LlNz3izj5d6uKpLtjQz6pme8arrB9wbj9JFxOHwV7QjTnj8nSbAtQOMC1gNfY/t5g7ZdoMYGrQxcA36Hk7fDRrvCafQs8bD1Vb3xc5ao36rcRyw3++RZTk2my22WcbgGfI8x3a75X5GY4u6dkStzoGO8i5+su+c0z15VsMwqKMYxBj1oGkaeN78ANlLKaGqKmT5Dvf7gjYBbduqTzyuPbMlw1ENd7udQm71DCj7YiAl6boOHddQl3D7NXy5QWIQ3T9Cggu51TzPyqAsDcqi0rWuhRnTolDOL+wSnVIbkSQLso6xJUvJSNglTfdwOCwBpQZVlfMWQ6OSBZeUCrjoYCmC982pHP3Q0DERLeY5YpoC18Dvgesx4DRNePcux5s3Dd6/b/HhQ0ck/HOZ8PWrpzBrXpZQW4+LixwX5w6vX9d4+7ahX+R7wNVVLxyXgCLCr18Fvn/f4fbWUuXAIJFiRRjTqrILw4ifPyvcXBe4uSnV7v6+Y0ckZtmT5YyVsJOUYxQ1awa3sIbpukphbaWiGWNQsXFr1muaRzqPzKyjeEnXaZKU54XhQ0s49lSblgL/33Og8xwN5taqAP854/cpoDDc70sUgmJR2VoHU3MCnNeW0J6T1FmeRjI69WtQpWcGPKnsqaQxOZkaOhYKUds2DqX1Ol4PKnd9w35L7L2EvhOVF6VPKkshx3HCq1cZXrxo8PRph2fPOiqY8PlTRFUWuLu707IIc7F7+bLC2VmB83OLy8tI5SOur7t/VZbxEpWvqd56HYiGygWWYUlLsIxkwO264nnJSwoq7FmiRLvEs6PK2jb6B5EBt4RhTUteYgirM778HLj6iJr1GlVRqjz2zE4U7nXsJhFF0q2aAZ4/NhcX9OOscyx9F8NSO/0JEEJABD6oCMAjsReGw8Q6/gG56WGCHmMJeDi2yUHrtmNTf8tbVGFcAh476c+u+nsvHoMJpnmxO/tS4MnzH/h4ZfAbcgquCNS8ygoAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;enter in your domains&quot;
+        title=&quot;enter in your domains&quot;
+        src=&quot;/static/cbacffcdb620c88007818f82bc46973c/b9e4f/certificate-manager4.png&quot;
+        srcset=&quot;/static/cbacffcdb620c88007818f82bc46973c/cf440/certificate-manager4.png 148w,
+/static/cbacffcdb620c88007818f82bc46973c/d2d38/certificate-manager4.png 295w,
+/static/cbacffcdb620c88007818f82bc46973c/b9e4f/certificate-manager4.png 590w,
+/static/cbacffcdb620c88007818f82bc46973c/f9b6a/certificate-manager4.png 885w,
+/static/cbacffcdb620c88007818f82bc46973c/adb17/certificate-manager4.png 894w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Set up CloundFront to connect to S3 Bucket Part II&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;When you get down to the SSL Certificate click custom SSL Certificate.&lt;/li&gt;
+&lt;li&gt;Click the input box and if you successfully created your SSL Certificate you should see a drop down associated with your domain.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/69459c49829aea6ea6c027c27e7898d0/6b5c3/cloudfront2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 68.7248322147651%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB10lEQVQ4y4VU23aCMBDkh/sz7Tf1qc9WbiKKkgCKXEVEnO4upaVeTnPOHhOdTGYmG42lv4Tv+1BawXVdbLZbXK9X/DcYM+KmeON8PuN0OqHrOvB8l+yQ5zmKokAURVBKUWkprbWsD4cDOsJmWXZPOE6YNE1TATFZRqSaCFvaOB7K1TSNrLkY/5CQQayGa71eY0u2o1DBmZtQNGfF7OByuaCn4nFuWyRJ8sc+lxD2fS8b+IuM7CQ7sh3H0I4DRbnuaSP/zuPyTchYVsnipnkaU7l1XYuaPC9EdZblKMsKJUWQ7lOJgvPb03w84HYY0wxGpayCyWezGRzLhmlasEwblmXBtm2EYUjxxGKZY0rITRQPa2PaBtPBhFpHpGaPmMA/RURVVUkxhquqSlF/PB4Hy9N+GucFWQ+CQNQEwUYuarMJ6VPR7R4oinJoL4qHyYYOOP0qvFXK1hcLDwt3geXSh+d5pNgncrb+SWWL7fjb6qC0fk7IObICbnS+iCIv8foGvLyAXtSArcpaVN1dykNCUhhFw+sYKsbHh8b7e0zqNBHVguWD7/rwEWHTdnCDHSzHgzmfyzvXeiW2VytPDuH2un3PzxX2VzTUakeyxPm09DJuR9/f/0F8AYAsNw+0VyD0AAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;setting up the SSL Certificate&quot;
+        title=&quot;setting up the SSL Certificate&quot;
+        src=&quot;/static/69459c49829aea6ea6c027c27e7898d0/b9e4f/cloudfront2.png&quot;
+        srcset=&quot;/static/69459c49829aea6ea6c027c27e7898d0/cf440/cloudfront2.png 148w,
+/static/69459c49829aea6ea6c027c27e7898d0/d2d38/cloudfront2.png 295w,
+/static/69459c49829aea6ea6c027c27e7898d0/b9e4f/cloudfront2.png 590w,
+/static/69459c49829aea6ea6c027c27e7898d0/6b5c3/cloudfront2.png 745w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;Set the Default Root Object: index.html&lt;/li&gt;
 &lt;li&gt;Leave the rest filled default value&lt;/li&gt;
 &lt;li&gt;Click Create Distribution&lt;/li&gt;
-&lt;li&gt;go back to cloudfront&lt;/li&gt;
-&lt;li&gt;edit&lt;/li&gt;
-&lt;li&gt;attach the custom ssl certificate&lt;/li&gt;
-&lt;li&gt;save&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1&gt;DNS Configuration&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;go back to domains.google.com&lt;/li&gt;
-&lt;li&gt;add the www and * with the cloudfront.net address&lt;/li&gt;
-&lt;/ul&gt;
+&lt;/ol&gt;
+&lt;h2&gt;DNS Configuration&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Through the management console go to Certificate manager and click on where the CNAME data is stored for your url.&lt;/li&gt;
+&lt;li&gt;This information that is stored in the CNAME and Value fields in Certificate Manager is the information that you need in order to connect your domain provider to your AWS configurations.&lt;/li&gt;
+&lt;li&gt;Go to go to where you purchased your domain and look for the DNS section.&lt;/li&gt;
+&lt;li&gt;Copy and past the information that you have in your Certificate Management console over to your Domain provider. This will establish a connection. &lt;/li&gt;
+&lt;li&gt;Once your Validation status reads ‘Success’ you know that what you have done has worked&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/922f140c1a5f5fd59113e353dd277a65/5200b/certificate-request1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 32.39104829210836%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAGCAYAAADDl76dAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA8UlEQVQY022Ry47CMAxF+9d8B1u+ii1Ifc2USZo2jzpJg2Bxx2kpqphZHDlyEt9ru5BSQgiBeU7MjJQSns+ZiXg8IuciQoiIcSWE8GbL7SlykXyYpglSCnSdwPU6oiwJTUNwzi9Ce7LoZ26j8N4vxcZxxDAIXC4jTieD49HicHA4nx07DSBaXeW3ztol7t1uFKrvUdcNeo4ZpRR/NvDeQGvDQjlqjhrGGDRfLcq6wq3rlvwey0IFEfHlN6qqRNs20Ox0ncfW3q5VRjiFgTTu6f5nfotDM3n8KAPByMHCUp4nvVTNWz27i7wcCgTy9O9CMr/jH8byCALCCgAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;validation status&quot;
+        title=&quot;validation status&quot;
+        src=&quot;/static/922f140c1a5f5fd59113e353dd277a65/b9e4f/certificate-request1.png&quot;
+        srcset=&quot;/static/922f140c1a5f5fd59113e353dd277a65/cf440/certificate-request1.png 148w,
+/static/922f140c1a5f5fd59113e353dd277a65/d2d38/certificate-request1.png 295w,
+/static/922f140c1a5f5fd59113e353dd277a65/b9e4f/certificate-request1.png 590w,
+/static/922f140c1a5f5fd59113e353dd277a65/5200b/certificate-request1.png 849w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;It is important to be patient during this process. This may take a while and if you try to redo the certificate and copy back over the information the process will just start over.&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&quot;6&quot;&gt;
+&lt;li&gt;Going back to AWS CloudFront. In the CloudFront Distributions page you will see where you have set up your site. Under domain name. There should be a URL that ends in ‘cloudfront.net’ follow that link. You should see your built site up and running.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;If you do not see your site you are going to need to go back and check through your cloudfront configurations&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&quot;7&quot;&gt;
+&lt;li&gt;If that works, then copy over that URL to where your domain hosts the DNS configuration info. Preform the same process as before when you were setting up the SSL Validation except this time you will set Name to ‘www’ set it CNAME as the type default to 1h and then set data to the CloudFront URL that you have just copied from AWS. &lt;/li&gt;
+&lt;li&gt;As like before this will take a minute to go through all of the checks so just be patient. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;CONGRATS!!! YOU DID IT&lt;/h3&gt;
+&lt;p&gt;That’s it you are the master of your own Domain ;D&lt;/p&gt;
 &lt;h5&gt;Sources:&lt;/h5&gt;
-&lt;p&gt;&lt;a href=&quot;https://medium.com/faun/deploy-static-website-to-amazon-s3-from-github-repository-3f1245d2a780&quot;&gt;Deploy Static Website to Amazon S3 from Github Repository&lt;/a&gt;
-&lt;a href=&quot;https://medium.com/@kyle.galbraith/how-to-host-a-website-on-s3-without-getting-lost-in-the-sea-e2b82aa6cd38&quot;&gt;How to Host a Website on S3 Without Getting Lost in the Sea&lt;/a&gt;
-&lt;a href=&quot;https://medium.com/@aashari&quot;&gt;Deploy Static Website to Amazon S3 from Github Repository&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[AWS and the Three Bears]]></title><description><![CDATA[Intro Getting your site hosted can be a huge hassle. There are a ton of options out there, but if you want to keep costs down choosing the…]]></description><link>https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</guid><pubDate>Sun, 25 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/faun/deploy-static-website-to-amazon-s3-from-github-repository-3f1245d2a780&quot;&gt;Deploy Static Website to Amazon S3 from Github Repository&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@kyle.galbraith/how-to-host-a-website-on-s3-without-getting-lost-in-the-sea-e2b82aa6cd38&quot;&gt;How to Host a Website on S3 Without Getting Lost in the Sea&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@aashari&quot;&gt;Deploy Static Website to Amazon S3 from Github Repository&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[AWS and the Three Bears]]></title><description><![CDATA[Intro Getting your site hosted can be a huge hassle. There are a ton of options out there, but if you want to keep costs down choosing the…]]></description><link>https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190825-AWS-and-the-Three-Bears/</guid><pubDate>Sun, 25 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;Getting your site hosted can be a huge hassle. There are a ton of options out there, but if you want to keep costs down choosing the next draggy-droppy solutions can get expensive and you may not want to chose a newer technology as you may have some problems (as I did) when something goes wrong. However, there is rarely the documentation that clearly spells out ONE way of doing things (but really that’s not how we learn anyway is it?).&lt;/p&gt;
 &lt;p&gt;When I first started out trying to figure out how to host my portfolio site and blog I did a ton of research on how I could host the damn thing and what I wanted to do all while learning a little about hosting. The initial goals of the project were as follows:&lt;/p&gt;
 &lt;ol&gt;
@@ -109,15 +488,29 @@
 &lt;h3&gt;Mama Bear: S3 Buckets, Cloudfront and Code&lt;/h3&gt;
 &lt;p&gt;At the end of the day I have decided that the best solution is of medium configuration. It is an integration of 3 well established solutions in AWS. &lt;a href=&quot;https://aws.amazon.com/s3/&quot;&gt;S3&lt;/a&gt;, &lt;a href=&quot;https://aws.amazon.com/cloudfront/&quot;&gt;Cloudfront&lt;/a&gt;, and &lt;a href=&quot;https://aws.amazon.com/codebuild/&quot;&gt;CodeBuild&lt;/a&gt;. S3 will handle holding all of your data, Cloudfront will handle routing your data to url and CodeBuild will work with your repository to make sure that it updates when you update your GitHub via Webhooks. &lt;/p&gt;
 &lt;p&gt;The price of my final solution should be extremely affordable as my site at this moment is only about 5mb in total. I don’t have any information about how much it will cost me, but I will update this in the future to let you know how much I am getting charged a month on average. &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Check out my next post for how I configured the whole thing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GitHub Portfolio Builder]]></title><description><![CDATA[The GitHub Portfolio Builder was designed to work with porfolio sites to easily pull down data from your GitHub Repository Thumbnails This…]]></description><link>https://blog.walterkjenkins.com/190817-github-portfolio-builder/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190817-github-portfolio-builder/</guid><pubDate>Fri, 16 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The GitHub Portfolio Builder was designed to work with porfolio sites to easily pull down data from your GitHub Repository&lt;/p&gt;
-&lt;h2&gt;Thumbnails&lt;/h2&gt;
-&lt;p&gt;This project has been configured to have the thumbnail photo located in the master root folder of your repo called “thumbnail.PNG”. Locattion can be edited by going in the getData() return function and changing up the thumbnail template literal.&lt;/p&gt;
-&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;thumbnail: `https://raw.githubusercontent.com/${usr}/${repo}/master/thumbnail.PNG`;&lt;/code&gt;&lt;/p&gt;
-&lt;h2&gt;Profiles / User&lt;/h2&gt;
-&lt;p&gt;In the first line of code you can set your default username up for GitHub. IF you by any chance have a project that you want to include that does NOT use your default username. You can add in the username in the setupArr by adding an element to the array. This is only required if you want to use a different user profile project for whatever reason. By default the user is set to &lt;code class=&quot;language-text&quot;&gt;user&lt;/code&gt; for the constructor function.&lt;/p&gt;
-&lt;h2&gt;Description &amp;#x26; Technology Formatting&lt;/h2&gt;
-&lt;h3&gt;Configuring on GigHub:&lt;/h3&gt;
-&lt;p&gt;I have set up my repositories descriptions a specific way for this project to work. I have inculded 2 nessessary sections to run this by editing my repository description on the GitHub page. This is done by setting up a default separator in the description as &lt;code class=&quot;language-text&quot;&gt;||&lt;/code&gt;. &lt;code class=&quot;language-text&quot;&gt;fetchedData&lt;/code&gt; brings in the full description and then splits it into an array. By default this split is set to &lt;code class=&quot;language-text&quot;&gt;||&lt;/code&gt;, but can be changed on at &lt;code class=&quot;language-text&quot;&gt;split&lt;/code&gt;. Below is an example of how I formated my &lt;code class=&quot;language-text&quot;&gt;Backyard Chickens&lt;/code&gt; repo.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Check out my next post for how I configured the whole thing&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[GitHub Portfolio Builder]]></title><description><![CDATA[The GitHub Portfolio Builder was designed to work with portfolio sites to easily pull down data from your GitHub Repository. My code was…]]></description><link>https://blog.walterkjenkins.com/190817-github-portfolio-builder/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190817-github-portfolio-builder/</guid><pubDate>Fri, 16 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;The GitHub Portfolio Builder was designed to work with portfolio sites to easily pull down data from your GitHub Repository. My code was designed to easily maintain a portfolio site by pulling directly from your own GitHub reops through the GitHub API as well as using files that are in your repository. The end result is a comprehensive dataset that pulls together:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The description that you have associated with a repo on your GitHub&lt;/li&gt;
+&lt;li&gt;The GitHub.com public URL associated with your repo&lt;/li&gt;
+&lt;li&gt;The GitHub API URL that is associated with your repo&lt;/li&gt;
+&lt;li&gt;The URL where you are hosting that GitHub Page&lt;/li&gt;
+&lt;li&gt;A link to a thumbnail photo that you have stored in your root folder of your repo&lt;/li&gt;
+&lt;li&gt;A custom list of technologies that you want to highlight associated with your repo &lt;/li&gt;
+&lt;li&gt;And a commit history for the past year associated with your repo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt; By the end of this tutorial you will have learned about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Getting your repo setup to work with my default configuration settings.&lt;/li&gt;
+&lt;li&gt;Learn how I structured my code so that you can use it on your own site.&lt;/li&gt;
+&lt;li&gt;An example of how you could incorporate this into your HTML site.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;The Layout&lt;/h1&gt;
+&lt;p&gt;In this tutorial we will be restructuring you GitHub repo descriptions to better pull data. There will be 3 different sections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The public name of the repo&lt;/li&gt;
+&lt;li&gt;The public description of the repo&lt;/li&gt;
+&lt;li&gt;and a custom list of technologies that you want to highlight&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;span
       class=&quot;gatsby-resp-image-wrapper&quot;
       style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
@@ -135,8 +528,8 @@
   &gt;&lt;/span&gt;
   &lt;img
         class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;image of repo descripttion&quot;
-        title=&quot;image of repo descripttion&quot;
+        alt=&quot;github descriptions layout&quot;
+        title=&quot;github descriptions layout&quot;
         src=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png&quot;
         srcset=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/cf440/github_description.png 148w,
 /static/5c7bb1101bcd19d6cc0888c022f54c74/d2d38/github_description.png 295w,
@@ -148,8 +541,210 @@
       /&gt;
   &lt;/a&gt;
     &lt;/span&gt;&lt;/p&gt;
-&lt;h4&gt;Description&lt;/h4&gt;
-&lt;h4&gt;Technology&lt;/h4&gt;
+&lt;h1&gt;The Code&lt;/h1&gt;
+&lt;p&gt;So before we went any further I thought that it might be nice to go over the logic behind pulling all of the variables and getting them all organized into one object. I have tried to do a good job with writing up good notes within the code that you can take a look at &lt;a href=&quot;https://github.com/AvidDabbler/github-portfolio-builder/blob/master/builder.js&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;. I will be posting code snippets along the way so that you know explicitly what I am talking about. &lt;/p&gt;
+&lt;h2&gt;Intro&lt;/h2&gt;
+&lt;p&gt;So the way that I structured this is by making some assumptions at the top. The 2 things that are of note at the top are the default username and the description split variables that are set as the default variable if there is nothing listed in the declared variable list further in the code. So what I would recommend is either cloning, forking or copying my repo&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To Repo&lt;/strong&gt;&lt;br&gt;
+&lt;a href=&quot;https://github.com/AvidDabbler/github-portfolio-builder&quot;&gt;https://github.com/AvidDabbler/github-portfolio-builder&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To Clone&lt;/strong&gt;&lt;br&gt;
+&lt;code class=&quot;language-text&quot;&gt;git clone https://github.com/AvidDabbler/github-portfolio-builder.git&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Setting Variables&lt;/h2&gt;
+&lt;h3&gt;User and Split Variables&lt;/h3&gt;
+&lt;p&gt;In the very top of the code you will find these const variables to set up your username and split variable. Switch out your user name and change the split type if you would like. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;//! DEFINING DEFAULTS
+
+const user = `AvidDabbler`; /* ENTER IN GITHUB USERNAME */
+const split = ` || `; /*  DEFAULT SEPARATOR */
+const finalArr= []; &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So where you see user go ahead an swap out my username for yours and if you want a different split identifier in your description go ahead and set it there.&lt;/p&gt;
+&lt;h3&gt;Selecting Repos&lt;/h3&gt;
+&lt;p&gt;In order for you to pull data you will need to set up your repos that you want to pull from. The code below is a sample of what I have set up to pull data from my repo. In this example there are other variables that I am not taking advantage of. There are a total of 3 variables repo name, user name, and split type. As we went over in the previous section we defined the default user and split at the top of the code, but I wanted to give the option if you had another username.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;// * DEFINED REPOS TO DISPLAY
+const setupArr = [/* set your variables here. There are 3 variables allowed, 
+                    but the last 2 default to the user and split variables 
+                    at the top */
+    [`backyard-chickens`],
+    [`CensusViz`],
+    [`dlm-soundboard`],
+
+];&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Code Rundown&lt;/h2&gt;
+&lt;h3&gt;getData()&lt;/h3&gt;
+&lt;p&gt;The following code snippet shows the full process of getting the data out of GitHub. This process is run through a for loop in the &lt;code class=&quot;language-text&quot;&gt;reposFunction()&lt;/code&gt; which we will cover in the next section. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;const getData = async(i, repo, usr = user, splt = split)=&amp;gt;{
+    const gitLink = `https://api.github.com/repos/${usr}/${repo}`;
+    const fetchedData = fetch(gitLink)
+        .then(response=&amp;gt; response.json())
+        .then(myJson=&amp;gt; ({data:myJson}))
+        .then(res =&amp;gt;{return res.data.description});
+    const object = await fetchedData;
+    const objArr = object.split(splt);
+
+    const statLink = `https://api.github.com/repos/${user}/${repo}/stats/participation`;
+    const statData = fetch(statLink).then( response=&amp;gt; 
+        response.json()).then(myJson=&amp;gt; ({
+            data:myJson
+        })
+        ).then(async res =&amp;gt;{
+            return res.data.all
+        });
+
+    /* FINAL PRODUCTS */
+    const formTitle = objArr[0];
+    const description = objArr[1];
+    const technology = objArr[2].split(&amp;#39;, &amp;#39;);
+    const particData = await statData;
+
+
+    return {
+            id: i,
+            repo: repo,
+            gitUrl: `https://github.com/${usr}/${repo}`,
+            thumbnail: `https://raw.githubusercontent.com/${usr}/${repo}/master/thumbnail.png`,
+            homepage: `https://${usr}.github.io/${repo}/`,
+            apiUrl: gitLink,
+            title: await formTitle,
+            descr: await description,
+            tech: await technology,
+            stats: await particData
+            }
+        };&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;variables&lt;/h4&gt;
+&lt;p&gt;In the first line of this code you are linking to your setupArr as well as the default or defined 2nd and 3rd variables in the setupArr. These variables are then used to parse through the section and pull together the GitHup URL’s that you will need to build your json objects at the end that will build your site. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;const gitLink = `https://api.github.com/repos/${usr}/${repo}`;
+    const fetchedData = fetch(gitLink)
+        .then(response=&amp;gt; response.json())
+        .then(myJson=&amp;gt; ({data:myJson}))
+        .then(res =&amp;gt;{return res.data.description});
+    const object = await fetchedData;
+    const objArr = object.split(splt)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The section above is the section that took me the most time to pull together. This is how we are able to fetch the raw data, then turn it into json, then go into the &lt;code class=&quot;language-text&quot;&gt;data&lt;/code&gt; key and return &lt;code class=&quot;language-text&quot;&gt;description&lt;/code&gt;. Which is what you will be formatting in all of your repositories on the front page of your repos. Using &lt;code class=&quot;language-text&quot;&gt;const object&lt;/code&gt; you await the data then you use that response to split out the data into an array. Scrolling down a bit you will find the &lt;code class=&quot;language-text&quot;&gt;const technology&lt;/code&gt; variable. This variable will use the result that you just produced.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;const technology = objArr[2].split(&amp;#39;, &amp;#39;);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To get back the commit history information you need to go to the stats API that GitHub has. The &lt;code class=&quot;language-text&quot;&gt;const statsLink&lt;/code&gt; is what is used to route specifically to the data concerning the amount of participation has taken place on each of the repos that you are querying. In &lt;code class=&quot;language-text&quot;&gt;const statsData&lt;/code&gt; it then takes that URL that you generated and then pulls the data from that location, converts that data to json. Then later in the code that code the resolved promise data is then stored in a static variable &lt;code class=&quot;language-text&quot;&gt;const particData&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;const statLink = `https://api.github.com/repos/${user}/${repo}/stats/participation`;
+    const statData = fetch(statLink).then( response=&amp;gt; 
+        response.json()).then(myJson=&amp;gt; ({
+            data:myJson
+        })
+        ).then(async res =&amp;gt;{
+            return res.data.all
+        });&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;… later in the code&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;const particData = await statData;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;reposFuntion()&lt;/h3&gt;
+&lt;p&gt;So the getData() will work if you have just one reop object, but if you have multiple reops that you are wanting to stor in a object you will need to use the reposFunction(). This function will call getData() for each item in &lt;code class=&quot;language-text&quot;&gt;setupArr&lt;/code&gt; and cycle through the list of repos that you have set up in the &lt;code class=&quot;language-text&quot;&gt;setupArr&lt;/code&gt;. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;//* calls all of the functions and pushes into finalarr&quot;&gt;&lt;pre class=&quot;language-//* calls all of the functions and pushes into finalarr&quot;&gt;&lt;code class=&quot;language-//* calls all of the functions and pushes into finalarr&quot;&gt;const reposFunction = async () =&amp;gt; { 
+    for(let i = 0; i &amp;lt; setupArr.length; i++){
+        let el = setupArr[i];
+        const getDataObj = await getData(i, el[0], el[1], el[2]);/* el 2 and 3 are optional */
+        finalArr.push(getDataObj);
+    };
+};&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;The Setup&lt;/h1&gt;
+&lt;h2&gt;Description &amp;#x26; Technology Formatting&lt;/h2&gt;
+&lt;p&gt;The description can easily be set up by going to your repo and clicking edit at the top of the page next to the repo description. As I mentioned earlier the repo description is broken out into 3 sections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Public Name&lt;/li&gt;
+&lt;li&gt;Description&lt;/li&gt;
+&lt;li&gt;Technology&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Feel free to set them up with whatever you like while remembering to include your custom separator. For the technology section make sure to separate them out by using a comma in the third section. &lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/c1e1e/github_description.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 21.37862137862138%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAs0lEQVQY02WQ24rDMAxE8//fWCj70pQQS7Lk2JGdMlVS2F3ow2F0Qxo0kRjuD8HP0nCb68XMjj6OL7wPjOMFzornsqJsDSsJ1AoSS+QVU82EIgTbHLk0lOqwUrF7R9v9i9oa9tBz8RGM/8TRqWwbRDKEGYkI/KsCCiX6q3PMJdYg5rWEU7tUckZW/ThcUsa8EFTtsziaGk0WQT5js0vlzC2Ol46kO1Z1sDko8N7D3Yi3DLwB5sUz2pMqKNcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;github descriptions layout&quot;
+        title=&quot;github descriptions layout&quot;
+        src=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png&quot;
+        srcset=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/cf440/github_description.png 148w,
+/static/5c7bb1101bcd19d6cc0888c022f54c74/d2d38/github_description.png 295w,
+/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png 590w,
+/static/5c7bb1101bcd19d6cc0888c022f54c74/f9b6a/github_description.png 885w,
+/static/5c7bb1101bcd19d6cc0888c022f54c74/c1e1e/github_description.png 1001w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Thumbnails&lt;/h2&gt;
+&lt;p&gt;This project has been configured to have the thumbnail photo located in the master root folder of your repo called “thumbnail.png”. Location can be edited by going in the &lt;code class=&quot;language-text&quot;&gt;getData()&lt;/code&gt; return function and changing up the thumbnail template literal.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/1427da54a8ac5c946f31581c25cfd227/13450/github-thumbnail.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 38.532110091743114%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAACXBIWXMAABYlAAAWJQFJUiTwAAAA9ElEQVQoz42R226DMBBE+a3+ZX8wT1UTKsVX7PUNM901SdU8FIq0Mux4huP1dLlqXFXETRNmk6BjhworVFxhaDus2SbcDA3v5z3gy2VMLlaU2pALF68pVyjjYH3g/jp6f9bDQ7lAW48lEKbaNgAbtk1WoK9MZiyLcXxL/6jkWdnj/cIwTGj4aL83iOhYDD+B56HiWUJAZtJpthW19eEUs4jWeQ71IEqglFBKOQxsrQ2IQWhjRu/t5W8SGGLk987aXqeES+BAJvTEVANwN4lZ5hGZ7j8zfAbKiOQk04d6gw7vuxkiNtyV5otxYy5ndE8IuchIhG/HenHwtb/UBQAAAABJRU5ErkJggg==&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;thumbnail in repo&quot;
+        title=&quot;thumbnail in repo&quot;
+        src=&quot;/static/1427da54a8ac5c946f31581c25cfd227/b9e4f/github-thumbnail.png&quot;
+        srcset=&quot;/static/1427da54a8ac5c946f31581c25cfd227/cf440/github-thumbnail.png 148w,
+/static/1427da54a8ac5c946f31581c25cfd227/d2d38/github-thumbnail.png 295w,
+/static/1427da54a8ac5c946f31581c25cfd227/b9e4f/github-thumbnail.png 590w,
+/static/1427da54a8ac5c946f31581c25cfd227/f9b6a/github-thumbnail.png 885w,
+/static/1427da54a8ac5c946f31581c25cfd227/13450/github-thumbnail.png 981w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;thumbnail: `https://raw.githubusercontent.com/${usr}/${repo}/master/thumbnail.png`;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANT: This url will be case sensitive&lt;/strong&gt;&lt;/p&gt;
+&lt;h1&gt;Deployment&lt;/h1&gt;
+&lt;p&gt;Now all of that is well and good, but now we are going to talk about how to get it to work within an HTML site. Using &lt;code class=&quot;language-text&quot;&gt;portfGen()&lt;/code&gt;. This function within my code is running everything. It is running my &lt;code class=&quot;language-text&quot;&gt;reposFunction()&lt;/code&gt; (which runs &lt;code class=&quot;language-text&quot;&gt;getData()&lt;/code&gt;). This function will iterate through all of the json objects that I have created and stored in the &lt;code class=&quot;language-text&quot;&gt;finalArr&lt;/code&gt;. The if statement within the function is just there for rendering either on the left or the right side of the screen based on the &lt;code class=&quot;language-text&quot;&gt;i&lt;/code&gt; from when we ran &lt;code class=&quot;language-text&quot;&gt;getData()&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;// * GITHUB DATA RENDERING
+const portfGen= async()=&amp;gt;{ 
+    await reposFunction();
+    
+    const data = await finalArr;
+    for(let i=0; i &amp;lt; data.length; i++){
+        if(i % 2 == 0){
+            document.getElementById(&amp;quot;portfolio-content&amp;quot;).innerHTML+=
+             `&amp;lt;div id=&amp;quot;project-${i}&amp;quot; class=&amp;quot;portfolio-container content&amp;quot;&amp;gt;
+                &amp;lt;div class=&amp;quot;thumbnail&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;${data[i].homepage}&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;
+                &amp;lt;img class=&amp;quot;&amp;quot; src=&amp;quot;${data[i].thumbnail}&amp;quot; alt=&amp;quot;${data[i].title} application photo&amp;quot;&amp;gt;&amp;lt;/img&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt; 
+                &amp;lt;div class=&amp;quot;paragraph&amp;quot;&amp;gt;
+                    &amp;lt;h2&amp;gt;${data[i].title}&amp;lt;/h2&amp;gt;
+                    &amp;lt;p&amp;gt;${data[i].descr}&amp;lt;/p&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;`
+        }
+        else{
+            document.getElementById(&amp;quot;portfolio-content&amp;quot;).innerHTML+= 
+            `&amp;lt;div id=&amp;quot;project-${i}&amp;quot; class=&amp;quot;portfolio-container content&amp;quot;&amp;gt;
+                &amp;lt;div class=&amp;quot;paragraph&amp;quot;&amp;gt;
+                    &amp;lt;h2&amp;gt;${data[i].title}&amp;lt;/h2&amp;gt;
+                    &amp;lt;p&amp;gt;${data[i].descr}&amp;lt;/p&amp;gt;
+                &amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&amp;quot;thumbnail&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;${data[i].homepage}&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;&amp;lt;img class=&amp;quot;&amp;quot; src=&amp;quot;${data[i].thumbnail}&amp;quot; alt=&amp;quot;${data[i].title} application photo&amp;quot;&amp;gt;&amp;lt;/img&amp;gt;&amp;lt;/a&amp;gt;
+                &amp;lt;/div&amp;gt;`
+        }
+    }
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Implementations&lt;/h2&gt;
 &lt;p&gt;I have implemented this GitHub code to build my own personal portfolio site so that I can easily update this information when I know someone is going to be looking at my site. &lt;/p&gt;
-&lt;h5&gt;Check it out @ &lt;a href=&quot;https://www.walterkjenkins.com/#portfolio&quot;&gt;walterkjenkins.com&lt;/a&gt;&lt;/h5&gt;</content:encoded></item></channel></rss>
+&lt;p&gt;&lt;strong&gt;Check it out @ &lt;a href=&quot;https://www.walterkjenkins.com&quot;&gt;walterkjenkins.com&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content:encoded></item></channel></rss>
