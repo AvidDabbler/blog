@@ -188,32 +188,27 @@ In the pi configuration window, the second tab allows you enable and disable cer
 <ol>
 <li>Connect to Pi via SSH (using putty again)</li>
 <li>Navigate to the root directory by running <code class="language-text">cd ../..</code></li>
-<li>run <code class="language-text">sudo nano /ect/samba/smbd.conf</code>.
+<li>run <code class="language-text">sudo apt-get install samba samba-common-bin</code> to install networking tools</li>
+<li>[Windows] in command prompt run <code class="language-text">ping raspberry pi</code> to make sure you can connect to the pi.</li>
+<li>[pi] run <code class="language-text">sudo cp smb.conf smb.old</code> to save a copy and <code class="language-text">sudo nano /ect/samba/smb.conf</code> to start editing.
 This will open up the smbdgat.conf file to be edited via in command line</li>
-<li>Under global settings make sure that <code class="language-text">workgroup = WORKGROUP</code> and under that add <code class="language-text">wins support = yes</code></li>
-<li>
-<p>At the very bottom of the sheet you are going to need to add the following lines</p>
-<div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">[pishare]
-comment=pishare
-path=/home/pi/
-browseable=yes
-writeable=yes
-only guest=no
-create mask=no
-directory mask=0777
-public=no</code></pre></div>
-</li>
+<li>Under <code class="language-text">Authentication</code> add <code class="language-text">security = user</code></li>
+<li>Under <code class="language-text">Share Definition</code> change <code class="language-text">read only = no</code></li>
 <li>Hit CTRL+O and then ENTER to save the file.</li>
 <li>Then Hit CTRL+X to exit nano.</li>
 <li>In the pi terminal. Run <code class="language-text">sudo smbpasswd -a pi</code> to set the samba password</li>
 <li>Type in and confirm your password to set and save.</li>
 <li>Restart samba by running <code class="language-text">sudo service smbd restart</code></li>
+<li>[Windows] Open up file explorer and right-click ‘this pc’ > map network drive</li>
+<li>type in ’\raspberrypi\pi’ and set to different credentials hit okay and it will prompt you to sign in.</li>
+<li>There should now be a mapped pi to your file explorer and you can now transfer files between the 2. </li>
 </ol>
 <h3>SOURCES!!!</h3>
 <p><a href="https://www.raspberrypi.org/documentation/installation/installing-images/">https://www.raspberrypi.org/documentation/installation/installing-images/</a> —> Reimage Pi SD Card
 <a href="https://www.raspberrypi.org/magpi/ssh-remote-control-raspberry-pi/">https://www.raspberrypi.org/magpi/ssh-remote-control-raspberry-pi/</a> —> SSH Tutorial
 <a href="http://www.circuitbasics.com/access-raspberry-pi-desktop-remote-connection/">http://www.circuitbasics.com/access-raspberry-pi-desktop-remote-connection/</a> —> Remote Desktop Connection
-<a href="https://blog.jongallant.com/2017/09/raspberrypi-file-share/">https://blog.jongallant.com/2017/09/raspberrypi-file-share/</a> —> Install and Configure Samba</p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><div class=" gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px;margin-right:0.875rem;margin-bottom:0;min-width:50px;border-radius:100%"><img aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAIAAAAf7rriAAAACXBIWXMAAC4jAAAuIwF4pT92AAAEJklEQVQ4y12NaVNaBxiF709qO8l0Mk1HG602WqsNqVTH3VijETBGExUbZRNUEEPBBRRRqlAQLorKIMYVxX1BdgFZVBTcMHJBFKip0471+XTeM/OcFwjfIfIvd/MNoVAo8n+CwaDn5AwIh0L3zOvr69szAEEHewcBf+Bu+d/05NwEcG/y9ol6Q0NCY1/AsrKTMyoR6GnFbCQcuSc7du3Aidv16cJ3feOEQ1dXwZt2a0tfllvMRKGYpa9fxSXAv42Dx6RQcI2Qz3e77vP7L6+CNwbgsazvmjaNOq1Jr921GjWrS7DYJDGp6WJeuS+Tb7R38Mrfdpaj47/6RjIw+M/biGPfxeG1qRYngLBHG3JrzqzL2+tz586tFkxt2pN428cJz9yCUz61PTRuEsudwxPNJWWEGizkDx4fHZl1q5xO7M/PvgQCjhWfQ3VmVZ2YVUc76gwYHFNQ5JyZH6S2TtJZJt6gjNzGriZ8KEHhK9EWo8mgkvDYZYwPSCouDfCo2KernMNlrndLaFGJ8KjXOOQbRgU6OzYBmZDUU1ae+jg66ouHz6LiSZVvNLNcJqWwg5Rd9zaBRvgVWFLwt2bA7QXpztLgsUGuYTO7Kt8rWSwpvkGMJw9gmzDZxdRCVE1OAa3w5ZoADxLzlPwK4u+JZEwqwOf3d/cKOFyRUCjaWFSYhwRgdZ19RKHvEuq6+hwixZ/I6jEsjVVaI6FQzg3TTHw+EpHS2ozjthMBxXAvONAjFnJHJQLDonR/fQxsaNzk8tfI9HE0rgNRXhKbSIXnUAuRxrnBC5tSwHjfxqBPSsWE2lzAtNxnV0ts64JNJXdXDRpUolUZb5XDHcFguIiKluQc1Hc/lfzwPa2qcmVW7tiYFLfUDvO6lFIhn/YOkAvqbQudXj3otwxBNumRDlRPimfYvXJivYpCpqcVNKTlouFwDpUkFEtlkhE+GT/xV7tlvl871glMD/QcLg8erUkutKDfAEKmIadBN8Xu4WJwMgp9FNvY/BvqdU7msV7q1o8ZVXIelaAeLj6YzSfXPgHGu6njfaRFQeNHVvWyiH5o0Z1ehJeEIAPxqgSWlhmbmPIohkVo2BhlzXJxYx211flZ1JoHhLqopPSHwBD1pZBaJWoqXxTUazRWpzvshSJ7e6cCApmQnl6UBKtLz++uYXCa2YiYr4vjo5HPYb+kPn0Kj4n98QEw8gdhQQYadZbzQGTXfWV1+l2eSy8UtjrPpC1d/ApML/IdE9tmsAXbG2lFyUkJ0Y/i4h9nZMFz8woBq+XgBIq4TkK2/UvTjs+6G3C4Lp0uyO6+WlNq+iswHARaKlJprZdGe2hlw9XU1JqV+YJEZDJZUuDYe73nDux7Pjtas89s9+/sfc4WB2TZ8YJNnWKGaEV7rtv+pNZ7dWbI4YpMqbariJV5pel/A90MJOWm6Kf9AAAAAElFTkSuQmCC" alt="Walter Jenkins" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms;border-radius:50%"/><noscript><picture><source srcset="/static/5b9b48cca521068548e2866eb7a31c47/8ba1e/profile_small.png 1x,
+<a href="https://blog.jongallant.com/2017/09/raspberrypi-file-share/">https://blog.jongallant.com/2017/09/raspberrypi-file-share/</a> —> Install and Configure Samba
+<a href="https://www.youtube.com/watch?v=4P5nEH9zGDI">https://www.youtube.com/watch?v=4P5nEH9zGDI</a> —> Video on mapping pi as a network drive</p></section><hr style="margin-bottom:1.75rem"/><footer><div style="display:flex;margin-bottom:4.375rem"><div class=" gatsby-image-wrapper" style="position:relative;overflow:hidden;display:inline-block;width:50px;height:50px;margin-right:0.875rem;margin-bottom:0;min-width:50px;border-radius:100%"><img aria-hidden="true" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAIAAAAf7rriAAAACXBIWXMAAC4jAAAuIwF4pT92AAAEJklEQVQ4y12NaVNaBxiF709qO8l0Mk1HG602WqsNqVTH3VijETBGExUbZRNUEEPBBRRRqlAQLorKIMYVxX1BdgFZVBTcMHJBFKip0471+XTeM/OcFwjfIfIvd/MNoVAo8n+CwaDn5AwIh0L3zOvr69szAEEHewcBf+Bu+d/05NwEcG/y9ol6Q0NCY1/AsrKTMyoR6GnFbCQcuSc7du3Aidv16cJ3feOEQ1dXwZt2a0tfllvMRKGYpa9fxSXAv42Dx6RQcI2Qz3e77vP7L6+CNwbgsazvmjaNOq1Jr921GjWrS7DYJDGp6WJeuS+Tb7R38Mrfdpaj47/6RjIw+M/biGPfxeG1qRYngLBHG3JrzqzL2+tz586tFkxt2pN428cJz9yCUz61PTRuEsudwxPNJWWEGizkDx4fHZl1q5xO7M/PvgQCjhWfQ3VmVZ2YVUc76gwYHFNQ5JyZH6S2TtJZJt6gjNzGriZ8KEHhK9EWo8mgkvDYZYwPSCouDfCo2KernMNlrndLaFGJ8KjXOOQbRgU6OzYBmZDUU1ae+jg66ouHz6LiSZVvNLNcJqWwg5Rd9zaBRvgVWFLwt2bA7QXpztLgsUGuYTO7Kt8rWSwpvkGMJw9gmzDZxdRCVE1OAa3w5ZoADxLzlPwK4u+JZEwqwOf3d/cKOFyRUCjaWFSYhwRgdZ19RKHvEuq6+hwixZ/I6jEsjVVaI6FQzg3TTHw+EpHS2ozjthMBxXAvONAjFnJHJQLDonR/fQxsaNzk8tfI9HE0rgNRXhKbSIXnUAuRxrnBC5tSwHjfxqBPSsWE2lzAtNxnV0ts64JNJXdXDRpUolUZb5XDHcFguIiKluQc1Hc/lfzwPa2qcmVW7tiYFLfUDvO6lFIhn/YOkAvqbQudXj3otwxBNumRDlRPimfYvXJivYpCpqcVNKTlouFwDpUkFEtlkhE+GT/xV7tlvl871glMD/QcLg8erUkutKDfAEKmIadBN8Xu4WJwMgp9FNvY/BvqdU7msV7q1o8ZVXIelaAeLj6YzSfXPgHGu6njfaRFQeNHVvWyiH5o0Z1ehJeEIAPxqgSWlhmbmPIohkVo2BhlzXJxYx211flZ1JoHhLqopPSHwBD1pZBaJWoqXxTUazRWpzvshSJ7e6cCApmQnl6UBKtLz++uYXCa2YiYr4vjo5HPYb+kPn0Kj4n98QEw8gdhQQYadZbzQGTXfWV1+l2eSy8UtjrPpC1d/ApML/IdE9tmsAXbG2lFyUkJ0Y/i4h9nZMFz8woBq+XgBIq4TkK2/UvTjs+6G3C4Lp0uyO6+WlNq+iswHARaKlJprZdGe2hlw9XU1JqV+YJEZDJZUuDYe73nDux7Pjtas89s9+/sfc4WB2TZ8YJNnWKGaEV7rtv+pNZ7dWbI4YpMqbariJV5pel/A90MJOWm6Kf9AAAAAElFTkSuQmCC" alt="Walter Jenkins" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition-delay:500ms;border-radius:50%"/><noscript><picture><source srcset="/static/5b9b48cca521068548e2866eb7a31c47/8ba1e/profile_small.png 1x,
 /static/5b9b48cca521068548e2866eb7a31c47/f937a/profile_small.png 1.5x,
 /static/5b9b48cca521068548e2866eb7a31c47/71eb7/profile_small.png 2x" /><img loading="lazy" width="50" height="50" srcset="/static/5b9b48cca521068548e2866eb7a31c47/8ba1e/profile_small.png 1x,
 /static/5b9b48cca521068548e2866eb7a31c47/f937a/profile_small.png 1.5x,

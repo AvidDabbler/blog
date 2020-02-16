@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 16 Feb 2020 05:38:48 GMT</lastBuildDate><item><title><![CDATA[Ugh!!! I Broke My Pi]]></title><description><![CDATA[The Joys of Linux So you know how you will always have a project that you you will come back to and inevitably something will have broken…]]></description><link>https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</guid><pubDate>Sat, 15 Feb 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Joys of Linux&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 16 Feb 2020 06:47:13 GMT</lastBuildDate><item><title><![CDATA[Ugh!!! I Broke My Pi]]></title><description><![CDATA[The Joys of Linux So you know how you will always have a project that you you will come back to and inevitably something will have broken…]]></description><link>https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</guid><pubDate>Sat, 15 Feb 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Joys of Linux&lt;/h2&gt;
 &lt;p&gt;So you know how you will always have a project that you you will come back to and inevitably something will have broken? Yeah that’s pretty much my relationship with the Raspberry Pi. as a big believer in open source and the community I inevitably every six months say, “I should wipe my OS and move to Linux and become a real Nerd”. Then I always say to myself “Hey you should do a Pi project before you make the jump”. And then I spend 3 days trying to figure out what the hell I did to mess up this piece of hardware that has just been sitting on the shelf for 6 months. &lt;/p&gt;
 &lt;p&gt;So like I said I pick up this Pi about every 6 months and say that I am going to do something with it and eventually get bogged down at work or I start a new coding class because I don’t like free time and I have always been exceptional at picking up more projects then I have the ability to take breaths. Which ironically I think that is partially the reason why I started “this” project… my blog. It is supposed to be here as documentation, to keep me focused and help my organize my thoughts and goals in a productive manor rather than attempting to grasp at them as they float by in my head. &lt;/p&gt;
 &lt;h2&gt;Rundown&lt;/h2&gt;
@@ -188,32 +188,27 @@ In the pi configuration window, the second tab allows you enable and disable cer
 &lt;ol&gt;
 &lt;li&gt;Connect to Pi via SSH (using putty again)&lt;/li&gt;
 &lt;li&gt;Navigate to the root directory by running &lt;code class=&quot;language-text&quot;&gt;cd ../..&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;run &lt;code class=&quot;language-text&quot;&gt;sudo nano /ect/samba/smbd.conf&lt;/code&gt;.
+&lt;li&gt;run &lt;code class=&quot;language-text&quot;&gt;sudo apt-get install samba samba-common-bin&lt;/code&gt; to install networking tools&lt;/li&gt;
+&lt;li&gt;[Windows] in command prompt run &lt;code class=&quot;language-text&quot;&gt;ping raspberry pi&lt;/code&gt; to make sure you can connect to the pi.&lt;/li&gt;
+&lt;li&gt;[pi] run &lt;code class=&quot;language-text&quot;&gt;sudo cp smb.conf smb.old&lt;/code&gt; to save a copy and &lt;code class=&quot;language-text&quot;&gt;sudo nano /ect/samba/smb.conf&lt;/code&gt; to start editing.
 This will open up the smbdgat.conf file to be edited via in command line&lt;/li&gt;
-&lt;li&gt;Under global settings make sure that &lt;code class=&quot;language-text&quot;&gt;workgroup = WORKGROUP&lt;/code&gt; and under that add &lt;code class=&quot;language-text&quot;&gt;wins support = yes&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;At the very bottom of the sheet you are going to need to add the following lines&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[pishare]
-comment=pishare
-path=/home/pi/
-browseable=yes
-writeable=yes
-only guest=no
-create mask=no
-directory mask=0777
-public=no&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;/li&gt;
+&lt;li&gt;Under &lt;code class=&quot;language-text&quot;&gt;Authentication&lt;/code&gt; add &lt;code class=&quot;language-text&quot;&gt;security = user&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Under &lt;code class=&quot;language-text&quot;&gt;Share Definition&lt;/code&gt; change &lt;code class=&quot;language-text&quot;&gt;read only = no&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Hit CTRL+O and then ENTER to save the file.&lt;/li&gt;
 &lt;li&gt;Then Hit CTRL+X to exit nano.&lt;/li&gt;
 &lt;li&gt;In the pi terminal. Run &lt;code class=&quot;language-text&quot;&gt;sudo smbpasswd -a pi&lt;/code&gt; to set the samba password&lt;/li&gt;
 &lt;li&gt;Type in and confirm your password to set and save.&lt;/li&gt;
 &lt;li&gt;Restart samba by running &lt;code class=&quot;language-text&quot;&gt;sudo service smbd restart&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;[Windows] Open up file explorer and right-click ‘this pc’ &gt; map network drive&lt;/li&gt;
+&lt;li&gt;type in ’\raspberrypi\pi’ and set to different credentials hit okay and it will prompt you to sign in.&lt;/li&gt;
+&lt;li&gt;There should now be a mapped pi to your file explorer and you can now transfer files between the 2. &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;SOURCES!!!&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.raspberrypi.org/documentation/installation/installing-images/&quot;&gt;https://www.raspberrypi.org/documentation/installation/installing-images/&lt;/a&gt; —&gt; Reimage Pi SD Card
 &lt;a href=&quot;https://www.raspberrypi.org/magpi/ssh-remote-control-raspberry-pi/&quot;&gt;https://www.raspberrypi.org/magpi/ssh-remote-control-raspberry-pi/&lt;/a&gt; —&gt; SSH Tutorial
 &lt;a href=&quot;http://www.circuitbasics.com/access-raspberry-pi-desktop-remote-connection/&quot;&gt;http://www.circuitbasics.com/access-raspberry-pi-desktop-remote-connection/&lt;/a&gt; —&gt; Remote Desktop Connection
-&lt;a href=&quot;https://blog.jongallant.com/2017/09/raspberrypi-file-share/&quot;&gt;https://blog.jongallant.com/2017/09/raspberrypi-file-share/&lt;/a&gt; —&gt; Install and Configure Samba&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Setting up GeoPanadas on Windows]]></title><description><![CDATA[The Problem I am starting a new project where I am trying to see if I can recreate some of the work that I do in my work, but using Open…]]></description><link>https://blog.walterkjenkins.com/190915-GeoPandas-Install/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-GeoPandas-Install/</guid><pubDate>Mon, 14 Oct 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Problem&lt;/h2&gt;
+&lt;a href=&quot;https://blog.jongallant.com/2017/09/raspberrypi-file-share/&quot;&gt;https://blog.jongallant.com/2017/09/raspberrypi-file-share/&lt;/a&gt; —&gt; Install and Configure Samba
+&lt;a href=&quot;https://www.youtube.com/watch?v=4P5nEH9zGDI&quot;&gt;https://www.youtube.com/watch?v=4P5nEH9zGDI&lt;/a&gt; —&gt; Video on mapping pi as a network drive&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Setting up GeoPanadas on Windows]]></title><description><![CDATA[The Problem I am starting a new project where I am trying to see if I can recreate some of the work that I do in my work, but using Open…]]></description><link>https://blog.walterkjenkins.com/190915-GeoPandas-Install/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-GeoPandas-Install/</guid><pubDate>Mon, 14 Oct 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Problem&lt;/h2&gt;
 &lt;p&gt;I am starting a new project where I am trying to see if I can recreate some of the work that I do in my work, but using Open Source and I was interested in working with GeoPandas. I have worked with Pandas in the past and had come across a couple of docs talking about GeoPandas.&lt;/p&gt;
 &lt;p&gt;So as with all Python libraries I ended up having a tough time trying to install and setup my environment. I tried working with PIP and Conda, but the issues persisted. &lt;/p&gt;
 &lt;p&gt;I ended up finding some documentation that speaks to this issue and the solution ended up being that I needed to install the decencies in the right order. However, those dependencies too were having issues installing. So what I ended up having to do is download the wheels manually and install them that way. &lt;/p&gt;
@@ -239,7 +234,23 @@ public=no&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;https://gdal.org/drivers/vector/filegdb.html&quot;&gt;https://gdal.org/drivers/vector/filegdb.html&lt;/a&gt; —&gt; gdal documentation&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/Toblerity/Fiona#windows&quot;&gt;https://github.com/Toblerity/Fiona#windows&lt;/a&gt; —&gt; setup fiona in windows&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://geoffboeing.com/2014/09/using-geopandas-windows/&quot;&gt;https://geoffboeing.com/2014/09/using-geopandas-windows/&lt;/a&gt; —&gt; Manual setup
-(What I had to use)&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
+(What I had to use)&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Install OpenCV on Windows 10]]></title><description><![CDATA[download opencv
+create dir
+exe
+install visual studio code
+setup environmental variables run cmd as admin
+setx -m OPENCV_DIR “C:\Program…]]></description><link>https://blog.walterkjenkins.com/191013-opencv-install/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/191013-opencv-install/</guid><pubDate>Sat, 07 Sep 2019 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;download opencv
+create dir
+exe
+install visual studio code
+setup environmental variables&lt;/p&gt;
+&lt;p&gt;run cmd as admin
+setx -m OPENCV_DIR “C:\Program Files\CMake\OpenCV\Build\x64\vc14”&lt;/p&gt;
+&lt;p&gt;install links
+&lt;a href=&quot;https://my.visualstudio.com/Downloads?q=Visual%20Studio%202015%20with%20Update%203&quot;&gt;https://my.visualstudio.com/Downloads?q=Visual%20Studio%202015%20with%20Update%203&lt;/a&gt;
+&lt;a href=&quot;https://sourceforge.net/projects/opencvlibrary/files/opencv-win/&quot;&gt;https://sourceforge.net/projects/opencvlibrary/files/opencv-win/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;sources
+&lt;a href=&quot;https://docs.opencv.org/master/d3/d52/tutorial_windows_install.html&quot;&gt;https://docs.opencv.org/master/d3/d52/tutorial_windows_install.html&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when hosting a static website, but at the end of the day I will be going the S3 / Cloudfront way of hosting and routing. This post will go through the following steps in a logical way:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hosting your files through AWS S3.&lt;/li&gt;
