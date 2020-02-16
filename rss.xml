@@ -1,4 +1,219 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>RSS for Node</generator><lastBuildDate>Tue, 15 Oct 2019 12:35:22 GMT</lastBuildDate><item><title><![CDATA[Setting up GeoPanadas on Windows]]></title><description><![CDATA[The Problem I am starting a new project where I am trying to see if I can recreate some of the work that I do in my work, but using Open…]]></description><link>https://blog.walterkjenkins.com/190915-GeoPandas-Install/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-GeoPandas-Install/</guid><pubDate>Mon, 14 Oct 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Problem&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 16 Feb 2020 05:38:48 GMT</lastBuildDate><item><title><![CDATA[Ugh!!! I Broke My Pi]]></title><description><![CDATA[The Joys of Linux So you know how you will always have a project that you you will come back to and inevitably something will have broken…]]></description><link>https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</guid><pubDate>Sat, 15 Feb 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Joys of Linux&lt;/h2&gt;
+&lt;p&gt;So you know how you will always have a project that you you will come back to and inevitably something will have broken? Yeah that’s pretty much my relationship with the Raspberry Pi. as a big believer in open source and the community I inevitably every six months say, “I should wipe my OS and move to Linux and become a real Nerd”. Then I always say to myself “Hey you should do a Pi project before you make the jump”. And then I spend 3 days trying to figure out what the hell I did to mess up this piece of hardware that has just been sitting on the shelf for 6 months. &lt;/p&gt;
+&lt;p&gt;So like I said I pick up this Pi about every 6 months and say that I am going to do something with it and eventually get bogged down at work or I start a new coding class because I don’t like free time and I have always been exceptional at picking up more projects then I have the ability to take breaths. Which ironically I think that is partially the reason why I started “this” project… my blog. It is supposed to be here as documentation, to keep me focused and help my organize my thoughts and goals in a productive manor rather than attempting to grasp at them as they float by in my head. &lt;/p&gt;
+&lt;h2&gt;Rundown&lt;/h2&gt;
+&lt;p&gt;So my reasoning for getting started again with the Raspberry Pi kind of revolve around the &lt;em&gt;Iot&lt;/em&gt; space. In the past couple of years I have become fascinated with this space in technology and its applications within the Transit Technology community. So the purpose of this “for me” is to set up a remote development environment so that I can connect to my Pi without having to set up accessories for it and it allows me to use VSCode or PyCharm without bogging down my Pi.&lt;/p&gt;
+&lt;h4&gt;In this post I am hoping to accomplish a couple of things:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Document out my frustrations with Linux&lt;/li&gt;
+&lt;li&gt;Spell out how to do a fresh install of Raspbian on your Pi&lt;/li&gt;
+&lt;li&gt;Connect to your Pi via SSH and Remote Desktop&lt;/li&gt;
+&lt;li&gt;Manage your Pi files and write code remotely from your local machine&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Things you will need:&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;A Raspberry Pi (with sd card)&lt;/li&gt;
+&lt;li&gt;A Windows machine that has a way to write to SD cards&lt;/li&gt;
+&lt;li&gt;A copy of &lt;a href=&quot;https://www.raspberrypi.org/downloads/raspbian/&quot;&gt;Raspbian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;A copy of &lt;a href=&quot;https://sourceforge.net/projects/win32diskimager/&quot;&gt;Win32DiskImager&lt;/a&gt; &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Wipe the damn thing&lt;/h3&gt;
+&lt;p&gt;So like I said this is going to be a complete restart. I just decided that I wanted to do a full wipe of the SD card as I was just having some difficulties working with the install that I had tried to update. This section will cover how to wipe your SD card and reformat using Window Disk Management.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Connect the SD Card&lt;/strong&gt;
+Obviously the first thing that you need to do is get your card setup. Whether that is though a port in your local machine or an dongle just get the SD card connected so that your computer can read it&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;In the Windows Menu type “Disk Management”&lt;/strong&gt;
+A program will pop-up in the menu bar saying “Create and Format Hard Disk Partitions”. Open that program&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Look for your SD Card&lt;/strong&gt;
+When the program loads up look for your SD card listed. If you already have a copy on there it will have a partition called “boot”. If not just make sure it matches the disk name that popped up when you inserted the card.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/6cd80c4bc5da963328a3c479e9829d01/c6671/partitions.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 79.89371124889281%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAABYlAAAWJQFJUiTwAAAClElEQVQ4y61U2W7iQBD0/z9GiRKFRIoUKecvJHtotSBBQsyxwMKCbDAGY3wCDndt9SgmoH1dS6XuabdneqqrrQ2GQ7iui/HYxXQ6xXK5IpZYLBbEkv5crXdgXL3/gPjz+Rzv7+/KarZtY+gM0TYcWPYQQRhhvV7vsNlsDux2u8VqtVLrFBKXmECr1Wowuya6PRvtTgemaaLX68GyLAXDMFRMIOtms4nRaIQOc+Wd2MFgAMdxVFzTSyWVHIYBXAaGpMD3PQRBgCiKEBJCRb1Wx5jUNBoNVaVs3uftZKMlK5OYVKuVKxV02m3Ek4naQBLCMEQcx2pTOXU2m6HVaiFiXG4hvEncZmW+72P/0eT01d4JKV+C7Ta1n7ylufs8yzqFliQztfNnEAcJKdKcz1zs4WDDBP/z0YQruYpoKI4T8jhTmEwSNmNO+76L7SOOZ+q9IP0uSajDSrWK1p8mu+vg6iqHTCaLi4sc8QPHx884OflGP4vLy5yC+JmM+Fmcnn7F0dGzip2d/cTT0xtloxfZQYNdiyiFATwvYrVrdLtj5PO/UKmK3lz0+z71JtOUsDFS+RTlUhWvrzoHw2VsQ/l1odXrfX7soV73kc12UShYeHnp4+3NRLVqoVzu0TdQLJrI5QyVk8/3OK4e4ij4kJevpCXa1HK5GsVa5Sx7OD//QnzH/b2Ohwcdt7cvuLkp0i8TJTw+6ri703F9rfMg0WCktBoE4YcNoBVfWxSzzavEPNVi0oDlT9mvBZJZQKID5W82h2rwvJAVhWxGqAYhhVYoNBRfrZZFOyJPHhvk7yDcOk5AP1C+68a0IXn1YNuhGtm0Opka7Tdn0zRsxVej0SO6TB7xdJ8/Ce8fCN8Cx/HVBgLP83b2L5+nqZ7htuGBAAAAAElFTkSuQmCC&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;find the partitions&quot;
+        title=&quot;find the partitions&quot;
+        src=&quot;/static/6cd80c4bc5da963328a3c479e9829d01/fcda8/partitions.png&quot;
+        srcset=&quot;/static/6cd80c4bc5da963328a3c479e9829d01/12f09/partitions.png 148w,
+/static/6cd80c4bc5da963328a3c479e9829d01/e4a3f/partitions.png 295w,
+/static/6cd80c4bc5da963328a3c479e9829d01/fcda8/partitions.png 590w,
+/static/6cd80c4bc5da963328a3c479e9829d01/efc66/partitions.png 885w,
+/static/6cd80c4bc5da963328a3c479e9829d01/c6671/partitions.png 1129w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;&lt;strong&gt;Wipe out all of the partitions.&lt;/strong&gt;
+When you open up Disk Management you should be able to right-click on each of the partitions that are set up on your SD card. Click ‘Delete Volume’ for each of the partitions so that you can start fresh. At the end you should just have an unformatted partition that takes up the whole disk space.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Download Raspbian&lt;/h3&gt;
+&lt;ol start=&quot;5&quot;&gt;
+&lt;li&gt;&lt;strong&gt;Go to the &lt;a href=&quot;https://www.raspberrypi.org/downloads/raspbian/&quot;&gt;Raspbian Site&lt;/a&gt; and download the latest version.&lt;/strong&gt;
+For this instance I would just reccomend that you use the full download with recommended software. This will get you setup with the raspbian cli and gui all in one without additional configuration. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/80d3b8aeb826186583ab89fc4a1752c1/c54b3/raspbian-download.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 61.760660247592845%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAMCAYAAABiDJ37AAAACXBIWXMAABYlAAAWJQFJUiTwAAACKklEQVQoz4VSS2/TQBDOf+fEASRAVK0qKoGqSoAqUQmESkvapGniR/yOHXu9a2/8Spogjojbx+yaciSHscfy7LffYwbtSqAuGaoig+Qcns0wvmEYDXO4dkbfCbx5CpYIrGimkbme5+kCPFugYInuyzxBVwkM1MC6KrBrO8zuCpx/GOHs9AvOP37F54tLjL5PML3zMZsINOUa21YSQESzN7CmY12qDxwT67rAoF7l2JUSv+stqpJYmQaMiUXl0aAH32EQWQlJ/37JDX5WNTiL4BFATWTi0NEMNwTWrjgG6qEktMSyLjPEkQPBFwSeIk1c7DYC246jlRm0PQQiWQzmWKiVXOqVFUquBnxsGsmoOATdXBgG7q9SjL/F8KYMcVBqf1tlD0luQx/8+QHyF0cQx2/BXx5hdXWNrpM9Q1WbusS6KVF/ukDw9AThqzOIgzdgx+8gKJDZfUTBuMiX9F74SOcmMlXENLUNsNBFoxgWRDn0LGRJALYMEVPvGSZGlzYi20Hiujp5niqPGOqCadm1sqpSJfr3X2I65YYMf6gkyVrCNijVyRC3w1sMr004dkqhCEqQa5/2lU75h0q52ekdSwJHr0VF4ElgopMpNk3vc1f1LP5X2kPFsKOUq4IWOPZREJikw4IuWz80PZg6oAPcw7BPOO8PNQWK0/dgT54hf31MKR6CH56go7V63Ia9klUokW9TgqGWmnlznVpqzZCaUyytKWS+/Ae4D/QP2XFMvS4h9MYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;download raspbian&quot;
+        title=&quot;download raspbian&quot;
+        src=&quot;/static/80d3b8aeb826186583ab89fc4a1752c1/fcda8/raspbian-download.png&quot;
+        srcset=&quot;/static/80d3b8aeb826186583ab89fc4a1752c1/12f09/raspbian-download.png 148w,
+/static/80d3b8aeb826186583ab89fc4a1752c1/e4a3f/raspbian-download.png 295w,
+/static/80d3b8aeb826186583ab89fc4a1752c1/fcda8/raspbian-download.png 590w,
+/static/80d3b8aeb826186583ab89fc4a1752c1/c54b3/raspbian-download.png 727w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;6&quot;&gt;
+&lt;li&gt;&lt;strong&gt;Unzip the files&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Write IMG file to SD card&lt;/h3&gt;
+&lt;ol start=&quot;7&quot;&gt;
+&lt;li&gt;&lt;strong&gt;Download and install a Copy of &lt;a href=&quot;https://sourceforge.net/projects/win32diskimager/&quot;&gt;Win32DiskImager&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Move the IMG file to the SD card.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Boot&lt;/h3&gt;
+&lt;ol start=&quot;9&quot;&gt;
+&lt;li&gt;&lt;strong&gt;Insert the SD Card&lt;/strong&gt;
+After inserting the SD Card you should be able to boot up the machine. Connect up a mouse keyboard and monitor to continue with setting up the internet through wifi or LAN connection.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Full update!!!&lt;/h3&gt;
+&lt;p&gt;For sanity sake. Go ahead and update everything by opening up terminal on your pi and running.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This is going to take a while. So make sure that you have the time to run. So make sure that you will be able to leave it running with a secure internet connection.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-text&quot;&gt;sudo apt update &amp;amp;&amp;amp; sudo apt full-upgrade -y&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;SSH&lt;/h3&gt;
+&lt;h4&gt;Config Pi&lt;/h4&gt;
+&lt;p&gt;In this section we are going to cover how to connect your main computer or laptop to you pi via ssh. This is how we will be able to run commands via the command line to execute processes in terminal or windows.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Boot up your Pi&lt;/strong&gt;
+If your pi is not already on and connected to the internet go ahead a do that now. &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Open up ‘Raspberry Pi Configuration’ settings&lt;/strong&gt;
+To do this you are going to want to click the start menu at the top left of the screen (The one with the raspberry). Go to preferences &gt; raspberry pi configuration&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Click the interfaces tab&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enable VNC and SSH&lt;/strong&gt;
+In the pi configuration window, the second tab allows you enable and disable certain functions. You are going to want to enable VNC and SSH here.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Config Main Computer (Windows 10)&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;(On your Pi) open up the terminal and type &lt;code class=&quot;language-text&quot;&gt;sudo ifconfig&lt;/code&gt;. Under &lt;code class=&quot;language-text&quot;&gt;wlan&lt;/code&gt; you will see an ip address next to inet. This is the pi’s ip address and you will need this to connect to the pi using putty.&lt;/li&gt;
+&lt;li&gt;(On Windows) Download &lt;a href=&quot;https://www.putty.org&quot;&gt;Putty&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Once you have downloaded and installed Putty open it up and create a new connection by inputting the ip address and using port 22&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/a91419dc0ddc38a3330b2dc8b306454b/68de2/putty.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 99.85228951255539%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAABYlAAAWJQFJUiTwAAADU0lEQVQ4y21U227bRhDVJ+elfxC3/ZYCfQmQt7YJAtiNJdmKROpOiiJlkhLvInV37dM5Y1G2gSxwsKvl6OzMmUvj27d/MJmMEAQh5vM5bMvCzJmjLCtsNltsqo3sNbaKqiwvKLIU1XqNIs+QpykahtGF686R57kilcu8KLDdbrHf77Hb7XA4HHAUHGocj+922m3FjraN4WCEu7t72LOZfDjo5W63V/IkSXR3XRfTqQVLMLNt2IKZ2PM8mUywXC7VkTiO0WCoyzBEu32Po7xYLxI7M/7Rwng0QvdHF4ZhYDQcod/vYzKeYDAYYCTfkiTVh7MsQyMUssD3MRRD6sb1/AzxdofhwMb1TQe9nqnfTdOEaZhYrVaIokhhieb0sBCZlJDsDI0vUvCa8HTaotVM8fHjGldXGcbjUu/KcvOiqURzOp3geZ7clXqnhJ63gC8eOjNHL5/Jdg7Z8xz0uh0N2ZRwGQ21oj3P1DYWZ+gp75RwuYwQBoFo9ENJj8eTEjLLDI0hcXfnriRgKuUVqI6WZes3koVhoIlSwiiKUUodURtH/vQ2KaxJ0+yrdn0BSabTqWabZ5YXtWNCCuG4EK7l0ugZ8lryjpClQa89CY3VQK/fgtqtixxVxSJncedoLB58if8Bg/7gkpQ6ZF/Ci5MMaVZgxYclIevqFaXAXizRn84xnD0gjKRT4jhBKsK6rqcJqZPC6vccC93mDaxBD2Uc4mdrMPPx5d97XHeGcEMp7CzNRIdcNTxz6f542OHzvYcPf4zxy59jXP0d4fevKX77EgsSxa8Cw5LoTANjSRgdUw9XUpgUmUS1hwcpbMP28anl4C8zwJ2/P+PwDrbno3n7XZPHkmokHAaSHdbji3cvhJVMl92GnfMkeBT8d8bjO9CrB8kDS0uzzIau11sNOT3YUkzGchUhCJeIJJokZZJyLZksLyRRpSSzem29lRhzPT09XQgJlg3n4831NTqdjhT1GLe3t1rIi4UnhWxdJo7jvI4/1fBni21ITdhijILG7BLevXRHqOCk4u+1FLYSUjse6GkuIbDiUwmrJqJhbcydg4RSkIQh1o/Wfd7g4OR8azVbOmQ5Pdhq7XZbQluoUXFuMRLw7k6+9aUReKYsrWZTs+z7Af4HN6fRKrYzKgMAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;putty setup example&quot;
+        title=&quot;putty setup example&quot;
+        src=&quot;/static/a91419dc0ddc38a3330b2dc8b306454b/fcda8/putty.png&quot;
+        srcset=&quot;/static/a91419dc0ddc38a3330b2dc8b306454b/12f09/putty.png 148w,
+/static/a91419dc0ddc38a3330b2dc8b306454b/e4a3f/putty.png 295w,
+/static/a91419dc0ddc38a3330b2dc8b306454b/fcda8/putty.png 590w,
+/static/a91419dc0ddc38a3330b2dc8b306454b/68de2/putty.png 677w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;Once you have add all of the inputs and saved the connection click open and this will open a terminal window.&lt;/li&gt;
+&lt;li&gt;This window will prompt you to log in to your Pi by asking for your user name and password. The default username is pi and the password is raspberry.&lt;/li&gt;
+&lt;li&gt;Once you fill out this information you should be logged into the device. If you get errors, go back and check the ip address that you entered is correct and that you have turned on all of the necessary permissions for ssl connections. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Remote Desktop (VNC)&lt;/h3&gt;
+&lt;p&gt;In this section we are going to go over how to connect via ‘Remote Desktop Connection’ on Windows 10. This will allow you to actually see what is happening on your Raspberry pi in realtime via your main computer or laptop. Just like SSH this will only cover how to do so when both devices are on the same network connection.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On your Raspberry Pi&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Install the xrdp packages by opening terminal and running &lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;sudo apt install xrdp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This should only take a couple of minutes, but it will require you to have an internet connection to your Pi to download the software.&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;In the SSH section you should have already enabled VNC on your Pi, but if you are not sure go back to step 2 in the SSH Config Pi section
+&lt;strong&gt;On Windows&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Open up your Remote Desktop Connection&lt;/li&gt;
+&lt;li&gt;Type in the IP address that you used to SSH into your Pi&lt;/li&gt;
+&lt;li&gt;Connect&lt;/li&gt;
+&lt;li&gt;When prompted enter your Pi username and password&lt;/li&gt;
+&lt;li&gt;BOOM! Ya done son.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Access Pi files from Windows File Explorer&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Connect to Pi via SSH (using putty again)&lt;/li&gt;
+&lt;li&gt;Navigate to the root directory by running &lt;code class=&quot;language-text&quot;&gt;cd ../..&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;run &lt;code class=&quot;language-text&quot;&gt;sudo nano /ect/samba/smbd.conf&lt;/code&gt;.
+This will open up the smbdgat.conf file to be edited via in command line&lt;/li&gt;
+&lt;li&gt;Under global settings make sure that &lt;code class=&quot;language-text&quot;&gt;workgroup = WORKGROUP&lt;/code&gt; and under that add &lt;code class=&quot;language-text&quot;&gt;wins support = yes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;At the very bottom of the sheet you are going to need to add the following lines&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;[pishare]
+comment=pishare
+path=/home/pi/
+browseable=yes
+writeable=yes
+only guest=no
+create mask=no
+directory mask=0777
+public=no&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;Hit CTRL+O and then ENTER to save the file.&lt;/li&gt;
+&lt;li&gt;Then Hit CTRL+X to exit nano.&lt;/li&gt;
+&lt;li&gt;In the pi terminal. Run &lt;code class=&quot;language-text&quot;&gt;sudo smbpasswd -a pi&lt;/code&gt; to set the samba password&lt;/li&gt;
+&lt;li&gt;Type in and confirm your password to set and save.&lt;/li&gt;
+&lt;li&gt;Restart samba by running &lt;code class=&quot;language-text&quot;&gt;sudo service smbd restart&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;SOURCES!!!&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.raspberrypi.org/documentation/installation/installing-images/&quot;&gt;https://www.raspberrypi.org/documentation/installation/installing-images/&lt;/a&gt; —&gt; Reimage Pi SD Card
+&lt;a href=&quot;https://www.raspberrypi.org/magpi/ssh-remote-control-raspberry-pi/&quot;&gt;https://www.raspberrypi.org/magpi/ssh-remote-control-raspberry-pi/&lt;/a&gt; —&gt; SSH Tutorial
+&lt;a href=&quot;http://www.circuitbasics.com/access-raspberry-pi-desktop-remote-connection/&quot;&gt;http://www.circuitbasics.com/access-raspberry-pi-desktop-remote-connection/&lt;/a&gt; —&gt; Remote Desktop Connection
+&lt;a href=&quot;https://blog.jongallant.com/2017/09/raspberrypi-file-share/&quot;&gt;https://blog.jongallant.com/2017/09/raspberrypi-file-share/&lt;/a&gt; —&gt; Install and Configure Samba&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Setting up GeoPanadas on Windows]]></title><description><![CDATA[The Problem I am starting a new project where I am trying to see if I can recreate some of the work that I do in my work, but using Open…]]></description><link>https://blog.walterkjenkins.com/190915-GeoPandas-Install/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-GeoPandas-Install/</guid><pubDate>Mon, 14 Oct 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Problem&lt;/h2&gt;
 &lt;p&gt;I am starting a new project where I am trying to see if I can recreate some of the work that I do in my work, but using Open Source and I was interested in working with GeoPandas. I have worked with Pandas in the past and had come across a couple of docs talking about GeoPandas.&lt;/p&gt;
 &lt;p&gt;So as with all Python libraries I ended up having a tough time trying to install and setup my environment. I tried working with PIP and Conda, but the issues persisted. &lt;/p&gt;
 &lt;p&gt;I ended up finding some documentation that speaks to this issue and the solution ended up being that I needed to install the decencies in the right order. However, those dependencies too were having issues installing. So what I ended up having to do is download the wheels manually and install them that way. &lt;/p&gt;
@@ -78,7 +293,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/760b42c8fa231490a544a1bf9ea42061/71a9e/pipeline1.png&quot;
+    href=&quot;/static/760b42c8fa231490a544a1bf9ea42061/bcb8c/pipeline1.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -91,12 +306,13 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;choose pipeline settings&quot;
         title=&quot;choose pipeline settings&quot;
-        src=&quot;/static/760b42c8fa231490a544a1bf9ea42061/b9e4f/pipeline1.png&quot;
-        srcset=&quot;/static/760b42c8fa231490a544a1bf9ea42061/cf440/pipeline1.png 148w,
-/static/760b42c8fa231490a544a1bf9ea42061/d2d38/pipeline1.png 295w,
-/static/760b42c8fa231490a544a1bf9ea42061/b9e4f/pipeline1.png 590w,
-/static/760b42c8fa231490a544a1bf9ea42061/71a9e/pipeline1.png 879w&quot;
+        src=&quot;/static/760b42c8fa231490a544a1bf9ea42061/fcda8/pipeline1.png&quot;
+        srcset=&quot;/static/760b42c8fa231490a544a1bf9ea42061/12f09/pipeline1.png 148w,
+/static/760b42c8fa231490a544a1bf9ea42061/e4a3f/pipeline1.png 295w,
+/static/760b42c8fa231490a544a1bf9ea42061/fcda8/pipeline1.png 590w,
+/static/760b42c8fa231490a544a1bf9ea42061/bcb8c/pipeline1.png 879w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -115,7 +331,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/2f382/pipeline2.png&quot;
+    href=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/84bf8/pipeline2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -128,13 +344,14 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;Add Source Stage&quot;
         title=&quot;Add Source Stage&quot;
-        src=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/b9e4f/pipeline2.png&quot;
-        srcset=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/cf440/pipeline2.png 148w,
-/static/547b2b34a6952cfe9846b5ca910498f4/d2d38/pipeline2.png 295w,
-/static/547b2b34a6952cfe9846b5ca910498f4/b9e4f/pipeline2.png 590w,
-/static/547b2b34a6952cfe9846b5ca910498f4/f9b6a/pipeline2.png 885w,
-/static/547b2b34a6952cfe9846b5ca910498f4/2f382/pipeline2.png 1162w&quot;
+        src=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/fcda8/pipeline2.png&quot;
+        srcset=&quot;/static/547b2b34a6952cfe9846b5ca910498f4/12f09/pipeline2.png 148w,
+/static/547b2b34a6952cfe9846b5ca910498f4/e4a3f/pipeline2.png 295w,
+/static/547b2b34a6952cfe9846b5ca910498f4/fcda8/pipeline2.png 590w,
+/static/547b2b34a6952cfe9846b5ca910498f4/efc66/pipeline2.png 885w,
+/static/547b2b34a6952cfe9846b5ca910498f4/84bf8/pipeline2.png 1162w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -150,7 +367,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/16abd/pipeline3.png&quot;
+    href=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/f79fa/pipeline3.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -163,13 +380,14 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;build stage&quot;
         title=&quot;build stage&quot;
-        src=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/b9e4f/pipeline3.png&quot;
-        srcset=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/cf440/pipeline3.png 148w,
-/static/2878fc7845ab4be7ee1b7c7c662610b9/d2d38/pipeline3.png 295w,
-/static/2878fc7845ab4be7ee1b7c7c662610b9/b9e4f/pipeline3.png 590w,
-/static/2878fc7845ab4be7ee1b7c7c662610b9/f9b6a/pipeline3.png 885w,
-/static/2878fc7845ab4be7ee1b7c7c662610b9/16abd/pipeline3.png 940w&quot;
+        src=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/fcda8/pipeline3.png&quot;
+        srcset=&quot;/static/2878fc7845ab4be7ee1b7c7c662610b9/12f09/pipeline3.png 148w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/e4a3f/pipeline3.png 295w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/fcda8/pipeline3.png 590w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/efc66/pipeline3.png 885w,
+/static/2878fc7845ab4be7ee1b7c7c662610b9/f79fa/pipeline3.png 940w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -186,7 +404,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/be733/pipeline4.png&quot;
+    href=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/8cae4/pipeline4.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -199,13 +417,14 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;Add deploy stage&quot;
         title=&quot;Add deploy stage&quot;
-        src=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/b9e4f/pipeline4.png&quot;
-        srcset=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/cf440/pipeline4.png 148w,
-/static/80e2c864168057b33f8f2d97c6d2cae9/d2d38/pipeline4.png 295w,
-/static/80e2c864168057b33f8f2d97c6d2cae9/b9e4f/pipeline4.png 590w,
-/static/80e2c864168057b33f8f2d97c6d2cae9/f9b6a/pipeline4.png 885w,
-/static/80e2c864168057b33f8f2d97c6d2cae9/be733/pipeline4.png 1109w&quot;
+        src=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/fcda8/pipeline4.png&quot;
+        srcset=&quot;/static/80e2c864168057b33f8f2d97c6d2cae9/12f09/pipeline4.png 148w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/e4a3f/pipeline4.png 295w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/fcda8/pipeline4.png 590w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/efc66/pipeline4.png 885w,
+/static/80e2c864168057b33f8f2d97c6d2cae9/8cae4/pipeline4.png 1109w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -219,7 +438,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/9a22e/pipeline5.png&quot;
+    href=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/7762d/pipeline5.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -232,12 +451,13 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;review the changes and click next&quot;
         title=&quot;review the changes and click next&quot;
-        src=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/b9e4f/pipeline5.png&quot;
-        srcset=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/cf440/pipeline5.png 148w,
-/static/27e6fd054d28c13d603f7c8dea8becc5/d2d38/pipeline5.png 295w,
-/static/27e6fd054d28c13d603f7c8dea8becc5/b9e4f/pipeline5.png 590w,
-/static/27e6fd054d28c13d603f7c8dea8becc5/9a22e/pipeline5.png 649w&quot;
+        src=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/fcda8/pipeline5.png&quot;
+        srcset=&quot;/static/27e6fd054d28c13d603f7c8dea8becc5/12f09/pipeline5.png 148w,
+/static/27e6fd054d28c13d603f7c8dea8becc5/e4a3f/pipeline5.png 295w,
+/static/27e6fd054d28c13d603f7c8dea8becc5/fcda8/pipeline5.png 590w,
+/static/27e6fd054d28c13d603f7c8dea8becc5/7762d/pipeline5.png 649w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -271,7 +491,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/e6866a604d7fbff47d8d604280dfad90/ec025/certificate-manager1.png&quot;
+    href=&quot;/static/e6866a604d7fbff47d8d604280dfad90/fe8a7/certificate-manager1.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -284,14 +504,15 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;enter in your domains&quot;
         title=&quot;enter in your domains&quot;
-        src=&quot;/static/e6866a604d7fbff47d8d604280dfad90/b9e4f/certificate-manager1.png&quot;
-        srcset=&quot;/static/e6866a604d7fbff47d8d604280dfad90/cf440/certificate-manager1.png 148w,
-/static/e6866a604d7fbff47d8d604280dfad90/d2d38/certificate-manager1.png 295w,
-/static/e6866a604d7fbff47d8d604280dfad90/b9e4f/certificate-manager1.png 590w,
-/static/e6866a604d7fbff47d8d604280dfad90/f9b6a/certificate-manager1.png 885w,
-/static/e6866a604d7fbff47d8d604280dfad90/2d849/certificate-manager1.png 1180w,
-/static/e6866a604d7fbff47d8d604280dfad90/ec025/certificate-manager1.png 1223w&quot;
+        src=&quot;/static/e6866a604d7fbff47d8d604280dfad90/fcda8/certificate-manager1.png&quot;
+        srcset=&quot;/static/e6866a604d7fbff47d8d604280dfad90/12f09/certificate-manager1.png 148w,
+/static/e6866a604d7fbff47d8d604280dfad90/e4a3f/certificate-manager1.png 295w,
+/static/e6866a604d7fbff47d8d604280dfad90/fcda8/certificate-manager1.png 590w,
+/static/e6866a604d7fbff47d8d604280dfad90/efc66/certificate-manager1.png 885w,
+/static/e6866a604d7fbff47d8d604280dfad90/c83ae/certificate-manager1.png 1180w,
+/static/e6866a604d7fbff47d8d604280dfad90/fe8a7/certificate-manager1.png 1223w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -305,7 +526,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/76d12/certificate-manager2.png&quot;
+    href=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/b9024/certificate-manager2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -318,14 +539,15 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;DNS validation&quot;
         title=&quot;DNS validation&quot;
-        src=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/b9e4f/certificate-manager2.png&quot;
-        srcset=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/cf440/certificate-manager2.png 148w,
-/static/924e4d995d57d5bd513c73c64f7a8a9d/d2d38/certificate-manager2.png 295w,
-/static/924e4d995d57d5bd513c73c64f7a8a9d/b9e4f/certificate-manager2.png 590w,
-/static/924e4d995d57d5bd513c73c64f7a8a9d/f9b6a/certificate-manager2.png 885w,
-/static/924e4d995d57d5bd513c73c64f7a8a9d/2d849/certificate-manager2.png 1180w,
-/static/924e4d995d57d5bd513c73c64f7a8a9d/76d12/certificate-manager2.png 1203w&quot;
+        src=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/fcda8/certificate-manager2.png&quot;
+        srcset=&quot;/static/924e4d995d57d5bd513c73c64f7a8a9d/12f09/certificate-manager2.png 148w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/e4a3f/certificate-manager2.png 295w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/fcda8/certificate-manager2.png 590w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/efc66/certificate-manager2.png 885w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/c83ae/certificate-manager2.png 1180w,
+/static/924e4d995d57d5bd513c73c64f7a8a9d/b9024/certificate-manager2.png 1203w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -339,7 +561,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/1f27a/certificate-manager3.png&quot;
+    href=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/20f89/certificate-manager3.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -352,14 +574,15 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;request a certificate&quot;
         title=&quot;request a certificate&quot;
-        src=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/b9e4f/certificate-manager3.png&quot;
-        srcset=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/cf440/certificate-manager3.png 148w,
-/static/f19000a199bd0c0c80525a0b2b21012e/d2d38/certificate-manager3.png 295w,
-/static/f19000a199bd0c0c80525a0b2b21012e/b9e4f/certificate-manager3.png 590w,
-/static/f19000a199bd0c0c80525a0b2b21012e/f9b6a/certificate-manager3.png 885w,
-/static/f19000a199bd0c0c80525a0b2b21012e/2d849/certificate-manager3.png 1180w,
-/static/f19000a199bd0c0c80525a0b2b21012e/1f27a/certificate-manager3.png 1213w&quot;
+        src=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/fcda8/certificate-manager3.png&quot;
+        srcset=&quot;/static/f19000a199bd0c0c80525a0b2b21012e/12f09/certificate-manager3.png 148w,
+/static/f19000a199bd0c0c80525a0b2b21012e/e4a3f/certificate-manager3.png 295w,
+/static/f19000a199bd0c0c80525a0b2b21012e/fcda8/certificate-manager3.png 590w,
+/static/f19000a199bd0c0c80525a0b2b21012e/efc66/certificate-manager3.png 885w,
+/static/f19000a199bd0c0c80525a0b2b21012e/c83ae/certificate-manager3.png 1180w,
+/static/f19000a199bd0c0c80525a0b2b21012e/20f89/certificate-manager3.png 1213w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -375,7 +598,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/cbacffcdb620c88007818f82bc46973c/adb17/certificate-manager4.png&quot;
+    href=&quot;/static/cbacffcdb620c88007818f82bc46973c/38af3/certificate-manager4.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -388,13 +611,14 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;enter in your domains&quot;
         title=&quot;enter in your domains&quot;
-        src=&quot;/static/cbacffcdb620c88007818f82bc46973c/b9e4f/certificate-manager4.png&quot;
-        srcset=&quot;/static/cbacffcdb620c88007818f82bc46973c/cf440/certificate-manager4.png 148w,
-/static/cbacffcdb620c88007818f82bc46973c/d2d38/certificate-manager4.png 295w,
-/static/cbacffcdb620c88007818f82bc46973c/b9e4f/certificate-manager4.png 590w,
-/static/cbacffcdb620c88007818f82bc46973c/f9b6a/certificate-manager4.png 885w,
-/static/cbacffcdb620c88007818f82bc46973c/adb17/certificate-manager4.png 894w&quot;
+        src=&quot;/static/cbacffcdb620c88007818f82bc46973c/fcda8/certificate-manager4.png&quot;
+        srcset=&quot;/static/cbacffcdb620c88007818f82bc46973c/12f09/certificate-manager4.png 148w,
+/static/cbacffcdb620c88007818f82bc46973c/e4a3f/certificate-manager4.png 295w,
+/static/cbacffcdb620c88007818f82bc46973c/fcda8/certificate-manager4.png 590w,
+/static/cbacffcdb620c88007818f82bc46973c/efc66/certificate-manager4.png 885w,
+/static/cbacffcdb620c88007818f82bc46973c/38af3/certificate-manager4.png 894w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -410,7 +634,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/69459c49829aea6ea6c027c27e7898d0/6b5c3/cloudfront2.png&quot;
+    href=&quot;/static/69459c49829aea6ea6c027c27e7898d0/7e509/cloudfront2.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -423,12 +647,13 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;setting up the SSL Certificate&quot;
         title=&quot;setting up the SSL Certificate&quot;
-        src=&quot;/static/69459c49829aea6ea6c027c27e7898d0/b9e4f/cloudfront2.png&quot;
-        srcset=&quot;/static/69459c49829aea6ea6c027c27e7898d0/cf440/cloudfront2.png 148w,
-/static/69459c49829aea6ea6c027c27e7898d0/d2d38/cloudfront2.png 295w,
-/static/69459c49829aea6ea6c027c27e7898d0/b9e4f/cloudfront2.png 590w,
-/static/69459c49829aea6ea6c027c27e7898d0/6b5c3/cloudfront2.png 745w&quot;
+        src=&quot;/static/69459c49829aea6ea6c027c27e7898d0/fcda8/cloudfront2.png&quot;
+        srcset=&quot;/static/69459c49829aea6ea6c027c27e7898d0/12f09/cloudfront2.png 148w,
+/static/69459c49829aea6ea6c027c27e7898d0/e4a3f/cloudfront2.png 295w,
+/static/69459c49829aea6ea6c027c27e7898d0/fcda8/cloudfront2.png 590w,
+/static/69459c49829aea6ea6c027c27e7898d0/7e509/cloudfront2.png 745w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -452,7 +677,7 @@
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/922f140c1a5f5fd59113e353dd277a65/5200b/certificate-request1.png&quot;
+    href=&quot;/static/922f140c1a5f5fd59113e353dd277a65/f96df/certificate-request1.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -465,12 +690,13 @@
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;validation status&quot;
         title=&quot;validation status&quot;
-        src=&quot;/static/922f140c1a5f5fd59113e353dd277a65/b9e4f/certificate-request1.png&quot;
-        srcset=&quot;/static/922f140c1a5f5fd59113e353dd277a65/cf440/certificate-request1.png 148w,
-/static/922f140c1a5f5fd59113e353dd277a65/d2d38/certificate-request1.png 295w,
-/static/922f140c1a5f5fd59113e353dd277a65/b9e4f/certificate-request1.png 590w,
-/static/922f140c1a5f5fd59113e353dd277a65/5200b/certificate-request1.png 849w&quot;
+        src=&quot;/static/922f140c1a5f5fd59113e353dd277a65/fcda8/certificate-request1.png&quot;
+        srcset=&quot;/static/922f140c1a5f5fd59113e353dd277a65/12f09/certificate-request1.png 148w,
+/static/922f140c1a5f5fd59113e353dd277a65/e4a3f/certificate-request1.png 295w,
+/static/922f140c1a5f5fd59113e353dd277a65/fcda8/certificate-request1.png 590w,
+/static/922f140c1a5f5fd59113e353dd277a65/f96df/certificate-request1.png 849w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
@@ -537,36 +763,7 @@
 &lt;li&gt;The public description of the repo&lt;/li&gt;
 &lt;li&gt;and a custom list of technologies that you want to highlight&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
-    &gt;
-      &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/c1e1e/github_description.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-    &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 21.37862137862138%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAs0lEQVQY02WQ24rDMAxE8//fWCj70pQQS7Lk2JGdMlVS2F3ow2F0Qxo0kRjuD8HP0nCb68XMjj6OL7wPjOMFzornsqJsDSsJ1AoSS+QVU82EIgTbHLk0lOqwUrF7R9v9i9oa9tBz8RGM/8TRqWwbRDKEGYkI/KsCCiX6q3PMJdYg5rWEU7tUckZW/ThcUsa8EFTtsziaGk0WQT5js0vlzC2Ol46kO1Z1sDko8N7D3Yi3DLwB5sUz2pMqKNcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;github descriptions layout&quot;
-        title=&quot;github descriptions layout&quot;
-        src=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png&quot;
-        srcset=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/cf440/github_description.png 148w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/d2d38/github_description.png 295w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png 590w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/f9b6a/github_description.png 885w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/c1e1e/github_description.png 1001w&quot;
-        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
-        loading=&quot;lazy&quot;
-      /&gt;
-  &lt;/a&gt;
-    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;github_description.PNG&quot; alt=&quot;github descriptions layout&quot;&gt;&lt;/p&gt;
 &lt;h1&gt;The Code&lt;/h1&gt;
 &lt;p&gt;So before we went any further I thought that it might be nice to go over the logic behind pulling all of the variables and getting them all organized into one object. I have tried to do a good job with writing up good notes within the code that you can take a look at &lt;a href=&quot;https://github.com/AvidDabbler/github-portfolio-builder/blob/master/builder.js&quot; target=&quot;_blank&quot;&gt;HERE&lt;/a&gt;. I will be posting code snippets along the way so that you know explicitly what I am talking about. &lt;/p&gt;
 &lt;h2&gt;Intro&lt;/h2&gt;
@@ -676,36 +873,7 @@ const setupArr = [/* set your variables here. There are 3 variables allowed,
 &lt;li&gt;Technology&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Feel free to set them up with whatever you like while remembering to include your custom separator. For the technology section make sure to separate them out by using a comma in the third section. &lt;/p&gt;
-&lt;p&gt;&lt;span
-      class=&quot;gatsby-resp-image-wrapper&quot;
-      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
-    &gt;
-      &lt;a
-    class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/c1e1e/github_description.png&quot;
-    style=&quot;display: block&quot;
-    target=&quot;_blank&quot;
-    rel=&quot;noopener&quot;
-  &gt;
-    &lt;span
-    class=&quot;gatsby-resp-image-background-image&quot;
-    style=&quot;padding-bottom: 21.37862137862138%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAs0lEQVQY02WQ24rDMAxE8//fWCj70pQQS7Lk2JGdMlVS2F3ow2F0Qxo0kRjuD8HP0nCb68XMjj6OL7wPjOMFzornsqJsDSsJ1AoSS+QVU82EIgTbHLk0lOqwUrF7R9v9i9oa9tBz8RGM/8TRqWwbRDKEGYkI/KsCCiX6q3PMJdYg5rWEU7tUckZW/ThcUsa8EFTtsziaGk0WQT5js0vlzC2Ol46kO1Z1sDko8N7D3Yi3DLwB5sUz2pMqKNcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
-  &gt;&lt;/span&gt;
-  &lt;img
-        class=&quot;gatsby-resp-image-image&quot;
-        alt=&quot;github descriptions layout&quot;
-        title=&quot;github descriptions layout&quot;
-        src=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png&quot;
-        srcset=&quot;/static/5c7bb1101bcd19d6cc0888c022f54c74/cf440/github_description.png 148w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/d2d38/github_description.png 295w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/b9e4f/github_description.png 590w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/f9b6a/github_description.png 885w,
-/static/5c7bb1101bcd19d6cc0888c022f54c74/c1e1e/github_description.png 1001w&quot;
-        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
-        loading=&quot;lazy&quot;
-      /&gt;
-  &lt;/a&gt;
-    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;github_description.PNG&quot; alt=&quot;github descriptions layout&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;Thumbnails&lt;/h2&gt;
 &lt;p&gt;This project has been configured to have the thumbnail photo located in the master root folder of your repo called “thumbnail.png”. Location can be edited by going in the &lt;code class=&quot;language-text&quot;&gt;getData()&lt;/code&gt; return function and changing up the thumbnail template literal.&lt;/p&gt;
 &lt;p&gt;&lt;span
@@ -714,7 +882,7 @@ const setupArr = [/* set your variables here. There are 3 variables allowed,
     &gt;
       &lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/static/1427da54a8ac5c946f31581c25cfd227/13450/github-thumbnail.png&quot;
+    href=&quot;/static/1427da54a8ac5c946f31581c25cfd227/1c3a5/github-thumbnail.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -727,13 +895,14 @@ const setupArr = [/* set your variables here. There are 3 variables allowed,
         class=&quot;gatsby-resp-image-image&quot;
         alt=&quot;thumbnail in repo&quot;
         title=&quot;thumbnail in repo&quot;
-        src=&quot;/static/1427da54a8ac5c946f31581c25cfd227/b9e4f/github-thumbnail.png&quot;
-        srcset=&quot;/static/1427da54a8ac5c946f31581c25cfd227/cf440/github-thumbnail.png 148w,
-/static/1427da54a8ac5c946f31581c25cfd227/d2d38/github-thumbnail.png 295w,
-/static/1427da54a8ac5c946f31581c25cfd227/b9e4f/github-thumbnail.png 590w,
-/static/1427da54a8ac5c946f31581c25cfd227/f9b6a/github-thumbnail.png 885w,
-/static/1427da54a8ac5c946f31581c25cfd227/13450/github-thumbnail.png 981w&quot;
+        src=&quot;/static/1427da54a8ac5c946f31581c25cfd227/fcda8/github-thumbnail.png&quot;
+        srcset=&quot;/static/1427da54a8ac5c946f31581c25cfd227/12f09/github-thumbnail.png 148w,
+/static/1427da54a8ac5c946f31581c25cfd227/e4a3f/github-thumbnail.png 295w,
+/static/1427da54a8ac5c946f31581c25cfd227/fcda8/github-thumbnail.png 590w,
+/static/1427da54a8ac5c946f31581c25cfd227/efc66/github-thumbnail.png 885w,
+/static/1427da54a8ac5c946f31581c25cfd227/1c3a5/github-thumbnail.png 981w&quot;
         sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
         loading=&quot;lazy&quot;
       /&gt;
   &lt;/a&gt;
