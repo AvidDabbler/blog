@@ -1,4 +1,237 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 16 Feb 2020 06:47:13 GMT</lastBuildDate><item><title><![CDATA[Ugh!!! I Broke My Pi]]></title><description><![CDATA[The Joys of Linux So you know how you will always have a project that you you will come back to and inevitably something will have broken…]]></description><link>https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</guid><pubDate>Sat, 15 Feb 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Joys of Linux&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 12 May 2020 15:36:26 GMT</lastBuildDate><item><title><![CDATA[Stop Using American FactFinder]]></title><description><![CDATA[AmericanFactfinder is Garbage No offense to the nice people at the US Census Bureau, but the AmericanFactfinder tool has been a pain in butt…]]></description><link>https://blog.walterkjenkins.com/200511-Stop-Using-American-FactFinder/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/200511-Stop-Using-American-FactFinder/</guid><pubDate>Mon, 11 May 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;AmericanFactfinder is Garbage&lt;/h2&gt;
+&lt;p&gt;No offense to the nice people at the US Census Bureau, but the AmericanFactfinder tool has been a pain in butt for planner and analysts in government and non-profits for years. Its fine if you just want one excel file every once and a while, but if you rely on it everyday and you know the export process by heart you may want to read this. The US Census provides an easy download option for select ACS data from various geographies for all 50 states. &lt;/p&gt;
+&lt;h2&gt;CONTENTS:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Using the ACS Web Client to download state level Geodatabases.&lt;/li&gt;
+&lt;li&gt;Using the ACS FTP site&lt;/li&gt;
+&lt;li&gt;What are GEOID’s and how to use them&lt;/li&gt;
+&lt;li&gt;How to navigate the data that you downloaded using the metadata table&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Quick Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;WebClient Download =&gt; &lt;a href=&quot;https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html&quot;&gt;https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;FTP Download =&gt; &lt;a href=&quot;https://www2.census.gov/geo/tiger/TIGER_DP/?#&quot;&gt;https://www2.census.gov/geo/tiger/TIGER_DP/?#&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GEOID Lookup =&gt; &lt;a href=&quot;https://census.missouri.edu/geocodes/?state=29&quot;&gt;https://census.missouri.edu/geocodes/?state=29&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Via Web Client&lt;/h3&gt;
+&lt;p&gt;If you are not comfortable working with FTP site thats fine the Census has an easy to use tool that just walks you through the process. If you want multiple states you will have to download them all separately though. The link to the Web Client is below:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html&quot;&gt;https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Using the ACS FTP Site&lt;/h3&gt;
+&lt;p&gt;The ACS FTP site might look scary, but if you want some reliable url’s that you can bookmark and download a bunch of state level data or even a nation wide level dataset, the FTP is the place to be. &lt;/p&gt;
+&lt;p&gt;The first thing that you are going to want to do is follow the &lt;a href=&quot;https://www2.census.gov/geo/tiger/TIGER_DP/?#&quot;&gt;link to the ACS&lt;/a&gt; and then select the year. The image below has the 2018 data circled. &lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/8a3f4f75050f57fd1e9454ad6f777ffc/1b853/ftp1.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 87.5%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAACXBIWXMAABYlAAAWJQFJUiTwAAACuklEQVQ4y3VU227TQBT0/38IL7wUQdUi9YG2UilIVCoCpU0pdeLr7vp+W18SD+dsYgNtusqR1/Z6MjNndq1xHLHdbsGj1j0WTgovqTGNqGjhqAq2LLH0M9w8RkirDkmh8RAUeAxyrPbv7twM1vThdjNgMwyoGk3Arbkf6F63HcpaI680ioqvjXnGVdDzqmnN87RskFFZRVHg6vM1sqqlRT3yujVMy6ZDP2zw+hjpR8pIoZnvy3JWTzg9fg83ruHH1Vwia3agPVe/Y0vMed51nbGJazSAfyGtMvyN9c2Z8UoSSJw3M7OBwKQQcFwXQRjCdT0kSYKQ5nVd41//ec5lJd4v3H46IkYaUa6hCFR3g1nEniol4XkehJDwPR9lUSKOY5Rl+QKQh5UFj1hcHSNIG8NQpDWadgfYti2BuXAdx7BihnEUzQxNM58Dpt4Dfl6+g8p3ksOkQrNnyF6JMIDv+4gIyCOGDBi8ItkAFuETll9OIFku+edGJXS/93CzISBFgAGklObKgEop1BSvg4CRc49vZ2+hqCkRATLo7CEBhqEwUgU1hwGzLDO+1nVzGDA3DE9Jrp49nAB5MbNZs4dBaCQrqQz4q5LZwx8Xuy6LZ4CcOf6Ym2CA146JEXdcaz1H5aWH1yeGIctlllNT2lYjIGa2vTKgDJSmqfGT/+wgw8Rd4vv5EWTRmcZwFnkLTgwl+RUSK2bIkpM4QZHnaLv+MMPMpxyeU2xou8koh6TY6C3mRdwE9pBZOY6LlHYK28CSp+33307Jvl5g8eENwjsb6sGGuF2gcTwQDWxosSCpQRAYySydGfL9FOyJ2TSs/PIjFhRsERUIKYPKj6CFAm1adBRoDvHKtg0re7U2AY/jyBwUHCuuyUsua6Djq1zeY6T9StkAfYlRCvQEMtChsN3ncTpZJhA+fdjj5/UHlnhhNjXOJlwAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;FTP Home page&quot;
+        title=&quot;FTP Home page&quot;
+        src=&quot;/static/8a3f4f75050f57fd1e9454ad6f777ffc/fcda8/ftp1.png&quot;
+        srcset=&quot;/static/8a3f4f75050f57fd1e9454ad6f777ffc/12f09/ftp1.png 148w,
+/static/8a3f4f75050f57fd1e9454ad6f777ffc/e4a3f/ftp1.png 295w,
+/static/8a3f4f75050f57fd1e9454ad6f777ffc/fcda8/ftp1.png 590w,
+/static/8a3f4f75050f57fd1e9454ad6f777ffc/1b853/ftp1.png 592w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Once you have landed on the year that you are interested in. You are going to see a bunch of numbers and characters that you might not be familiar with. Don’t worry you got this. There is a simple formula for all of the files that you are going to see on this page:&lt;/p&gt;
+&lt;h4&gt;ACS&lt;em&gt;{YEAR}&lt;/em&gt;{ESTIMATE}&lt;em&gt;{GEOGRAPHY}&lt;/em&gt;{STATE-GEOCODE-ID}.gdb.zip&lt;/h4&gt;
+&lt;p&gt;If the listed file does not have the State Geocode ID associated with it. It is safe to assume that it is the Nationwide dataset. Below is a snapshot from the 2018 site where you can see that the top file is the nationwide blockgroup dataset and the one below it is the Alabama dataset.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/d595c01d4acc78ab9e7d34d552816687/49217/ftp2.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 11.269614835948644%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAACCAYAAABYBvyLAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAd0lEQVQI102NywqDMBQF/f//0o8odBEwiUnzavNQ6WJ6EYSezcxqzvSYZ1z8kNuJyx1fBjo2NnEjtKkzji/3SikYY9Bao5RiXVdijISXJwin57IQcqP0k/DeSfW4oi4P8f062f6itVastRLVGGFKmdYb3jlCSPwAu2yXJngJpUYAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;FTP 2018 Example&quot;
+        title=&quot;FTP 2018 Example&quot;
+        src=&quot;/static/d595c01d4acc78ab9e7d34d552816687/fcda8/ftp2.png&quot;
+        srcset=&quot;/static/d595c01d4acc78ab9e7d34d552816687/12f09/ftp2.png 148w,
+/static/d595c01d4acc78ab9e7d34d552816687/e4a3f/ftp2.png 295w,
+/static/d595c01d4acc78ab9e7d34d552816687/fcda8/ftp2.png 590w,
+/static/d595c01d4acc78ab9e7d34d552816687/49217/ftp2.png 701w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;What are Geoid’s and how to use them&lt;/h3&gt;
+&lt;p&gt;Geoid’s are numerical values that are set to be unique identifying integers that are associated with a piece of geography. Unlike numbers though depending on how long a number is dependent on what it stands for. Now if you are dealing with a dataset that is specific to say a state and the only thing in that data set is counties there may be a column in there that is 2 digits long that is associated with the county that goes up in increments of 2 (skipping even numbers). It is important to know that for every state there is a 01 associated with the first county in the alphabet. But there is also a unique number associated with the state that is tacked onto the front of the county number. There is a handy website to help with finding the associated number that you are looking for for the ACS information &lt;a href=&quot;https://census.missouri.edu/geocodes/?state=29&quot;&gt;HERE&lt;/a&gt;. Choose the dropdown and select your state and all of the associated geoid’s will be populated. &lt;/p&gt;
+&lt;p&gt;In the below example, the Missouri Counties are displayed and you will notice that they all start with 29 because that is the unique identifying character to that state. If you were to go a bit deeper you would find that the tract or blockgroup associated with each county would have the same 5 letters at the beginning of the geoid.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/e3b41111dddd1d9d570441ea734e46d3/0fb99/geoid.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 70.15544041450778%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAABYlAAAWJQFJUiTwAAACDElEQVQ4y51Ta3ObMBDk//+ntnESTx+TZmInNk8jEGDAxoB4+dHObO6E43H7pZ5+2LmTOO0te5Lx4+kZd/ePeJx+w2yxQNFWGPa/0e1P6P8DxrYoEScp0myDfFugblu03Z4woGG0g87bfn8TjDzPEYYhpJSQFIUQ4L2OiLdVCy9MkMQRETdQSv0TRlk3qAi7skZZKR31uqpRqw6Vaomsv13h088XTB6m+PRlgqfnGaZfv+s4uZ/i890D5q9L7I/k6XCjh1GcQoQRAhkTEqz8EAWp7PoD6qbTHo7FxxsIjzBktCbCGCKI4BOWlqtJq6bXk+6Go0bL6BmHq/z87So30rxAss71pNebGmFaIUgKhOsdgnUJmZaIcoUoU5RXiM5rmdW0N+Z8htd1M8DINgUYTMxoSEGvlZ0uiniP44faa7R/RcN0fMzfLCxMGzMaQFEq6tTTxBtNMhxO5wZH7NSgrVAErlHkL0e+CersteHICnawgbcS2jvbWWmYtkeeyovhTXfAi5PBXsUwLQeO6+saxuvCQkizGA6/YNhBAUtkWIlwHA7BF1JPnoekVTIhxblHjcNU3wiu4zOBjpJeWTkSmqLAm5vAJYUeKfRWAWzqvjQd3fVPhTksL9J/w3WuJ8Y/ovqKHsGoMNzBJoVcxKocKmJlnh9A0h3log/CmZvDEcnFHpdJKef7uykq7fM7tMEaBBCff+sAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;img
+        class=&quot;gatsby-resp-image-image&quot;
+        alt=&quot;GEOID example&quot;
+        title=&quot;GEOID example&quot;
+        src=&quot;/static/e3b41111dddd1d9d570441ea734e46d3/fcda8/geoid.png&quot;
+        srcset=&quot;/static/e3b41111dddd1d9d570441ea734e46d3/12f09/geoid.png 148w,
+/static/e3b41111dddd1d9d570441ea734e46d3/e4a3f/geoid.png 295w,
+/static/e3b41111dddd1d9d570441ea734e46d3/fcda8/geoid.png 590w,
+/static/e3b41111dddd1d9d570441ea734e46d3/efc66/geoid.png 885w,
+/static/e3b41111dddd1d9d570441ea734e46d3/0fb99/geoid.png 965w&quot;
+        sizes=&quot;(max-width: 590px) 100vw, 590px&quot;
+        style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+        loading=&quot;lazy&quot;
+      /&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Navigating Metadata&lt;/h3&gt;
+&lt;p&gt;Now that you are a master of downloading all of the data you are going to find that the new challenge is actually identifying all of the columns that you now have access to. On the associated page that you were just on if you scroll all the way down to the bottom of the page you will find a &lt;a href=&quot;https://www2.census.gov/geo/tiger/TIGER_DP/2018ACS/Metadata/&quot;&gt;metadata link&lt;/a&gt;. Once you are there you are going to find a list of metadatas that line up with all of the geographies that you had to choose from. Click on the geography that you want and then right-click the next page &gt; save page as &gt; open up in excel &gt; save as an xlxs file.&lt;/p&gt;
+&lt;p&gt;The way that I keep track is by either highlighting rows or creating new excel files for each associated project so I can rememeber what I was using quickly, but you can always head back to the metadata page for reference. &lt;/p&gt;</content:encoded></item><item><title><![CDATA[Vizualizing Realtime Bus Locations using GTFS-RT]]></title><description><![CDATA[Introduction So over the years I have worked with GTFS feeds from agencies all around to run analysis and build frequency and trip based GIS…]]></description><link>https://blog.walterkjenkins.com/200512-Two-Ways-to-Vizualize-Realtime-Bus-Locations/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/200512-Two-Ways-to-Vizualize-Realtime-Bus-Locations/</guid><pubDate>Sun, 19 Apr 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;So over the years I have worked with GTFS feeds from agencies all around to run analysis and build frequency and trip based GIS visualizations. A separate feed from &lt;a href=&quot;https://developers.google.com/transit/gtfs&quot;&gt;GTFS&lt;/a&gt; is called &lt;a href=&quot;https://developers.google.com/transit/gtfs-rt&quot;&gt;GTFS-RT&lt;/a&gt; that displays the Realtime locations. This feed as well as GTFS is a global standard and if you wanted to work with this kind of data in your own city check with your local transit authority to see if they are one of the Agencies that &lt;a href=&quot;https://transitfeeds.com/&quot;&gt;Openly Publish&lt;/a&gt; there information.&lt;/p&gt;
+&lt;p&gt;This blog post started with a Twitter poll where I asked what people would be interested in me writing about and it was overwhelmingly in favor of Realtime bus locations. Granted the othere options were pretty much geared toward transit policy woks and people like pretty things, but I digress. Vizualizing GTFS-RT has been on my todo list for some time and I am glad that I got around to tackling the problem.&lt;/p&gt;
+&lt;h3&gt;Data Two Ways&lt;/h3&gt;
+&lt;p&gt;Starting this project it was geared toward the agency wanting to create a service that would process the information server side and host as a Hosted Service for use on an ArcGIS Enterprise system. However, I ended up failing to do so, but have been able to get it running on my local machine so I will show you how I did that. I do have some plans to get this running using a Lambda function or ec2 instance in the future, but haven’t played around with it too much.&lt;/p&gt;
+&lt;p&gt;The other way that I was able to get it up and running is through the MapBox PB API. I started this article thinking that I was going to cover it, but to be quite honest you should go read his &lt;a href=&quot;https://gavinr.com/protocol-buffers-protobuf-browser/&quot;&gt;post&lt;/a&gt; it is so much better than anything that I could write so I am just going to cover what I ended up fulling putting together on my end using Python. &lt;/p&gt;
+&lt;h2&gt;Building a Feature Service using Python&lt;/h2&gt;
+&lt;p&gt;So I am going to be honest. I am not sure if I am using this term correctly. In ArcGIS Online/Enterprise world a GIS layer on their online platfor is called a Hosted Feature, but at the end of this you will just be left with a Python script that will output a json file that you can map out. &lt;/p&gt;
+&lt;h3&gt;Getting your data&lt;/h3&gt;
+&lt;p&gt;So like I said previously you will need a GTFS and GTFS-RT for this project which are generally available openly for most transit agencies. The GTFS is the static feed. This feed will have all of the static elements that will repeat over time, like Stop locations, route attributes, and trip alignments. I have separated each of these out into 2 different calls because the GTFS will at most change once a week where as the GTFS-RT is going to update around every 30 seconds. &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Rule of Thumb: Transit agencies generally change their GTFS on Monday&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GTFS fetch&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The first thing that you are going to want to do is fetch the Python file and extract the data. Making sure this is run at the top of the script so you do not run this in a loop and when it starts up the first thing it will do is make sure that there is a fresh GTFS to go with the realtime information that is getting pulled in. The purpose for this is the GTFS-RT does not have all of the relevant information that someone would want, but the GTFS is designed to link up to the GTFS-RT and it has all of the information that you would want. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;def getGTFS(gtfs_url):
+    gtfs = [ # list of gtfs files and their locations
+        os.path.join(dir, &amp;#39;agency.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;calendar.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;calendar_dates.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;routes.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;shapes.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;stop_times.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;stops.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;transfers.txt&amp;#39;),
+        os.path.join(dir, &amp;#39;trips.txt&amp;#39;),
+    ]
+    for file in gtfs: # delete gtfs files before fetching
+        if os.path.exists(file):
+            os.remove(file)
+
+    print(&amp;#39;FETCHING GTFS...&amp;#39;)
+
+
+    zipresp = urlopen(gtfs_url) # Create a new file on the hard drive
+    tempzip = open(&amp;quot;google_transit.zip&amp;quot;, &amp;quot;wb&amp;quot;) # Write the contents of the downloaded file into the new file
+    tempzip.write(zipresp.read()) # Close the newly-created file
+    tempzip.close() # Re-open the newly-created file with ZipFile()
+
+    # Extract its contents into &amp;lt;extraction_path&amp;gt; *note that extractall will automatically create the path
+    zf = zipfile.ZipFile(&amp;quot;google_transit.zip&amp;quot;) 
+    zf.extractall(dir) # close the ZipFile instance
+    zf.close()
+    os.remove(fr&amp;quot;{dir}/google_transit.zip&amp;quot;)
+
+    print(&amp;#39;FETCH COMPLETE!&amp;#39;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;GTFS-RT fetch&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;There are 2 different files when it comes to the GTFS-RT that you will be interested in:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Trips&lt;/li&gt;
+&lt;li&gt;Vehicles&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The trips data issues out information about the realtime associated with each trip that is currently in service. You can link up the information in the static GTFS from the trips.txt file using the trip&lt;em&gt;id column (and then the routes and shapes and stop&lt;/em&gt;times so on and so forth).&lt;/p&gt;
+&lt;p&gt;The Vehicles data issue out information about the realtime locations of all of the buses.&lt;/p&gt;
+&lt;p&gt;For more information you can reference the &lt;a href=&quot;https://developers.google.com/transit/gtfs-realtime&quot;&gt;GTFS-Realtime Specification&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When you fetch out each of the datasets you are going to need to use the pip module in the &lt;a href=&quot;https://pypi.org/project/google/&quot;&gt;google library&lt;/a&gt; &lt;code class=&quot;language-text&quot;&gt;google.transit.gtfs_realtime_pb2&lt;/code&gt;. What I have done is put together a little function to the the Protocol Buffer infromation that the feed gives off and then parse it to a string and then to a dict. &lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;    def parseDict(pbu):
+        # TAKES THE DATA FROM U (THE PB URL) AND TURNS IT INTO A DICTIONARY
+        feed = gtfs_realtime_pb2.FeedMessage()
+        response = requests.get(pbu)
+        feed.ParseFromString(response.content)
+        feed = MessageToDict(feed)
+        return feed&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;After you have a dictionary you can then inject data from the GTFS or where ever to the vehicles and trips information. I am not going to go over all of this, but you can take a look at my &lt;a href=&quot;https://github.com/AvidDabbler/GTFSRT-parsing&quot;&gt;GTFSRT-parsing Repo&lt;/a&gt; for mor in depth workthrough. From there what I did what convert the dict to a &lt;a href=&quot;https://geojson.org/&quot;&gt;geojson format&lt;/a&gt; by just creating a blank object labeled as a feature collection and within that feature collection there is a feature that has features. With each feature you need to create and inject data into the four different sections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;type&lt;/li&gt;
+&lt;li&gt;properties&lt;/li&gt;
+&lt;li&gt;geometry&lt;/li&gt;
+&lt;li&gt;data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;        allVehicles = {}
+        allVehicles[&amp;#39;type&amp;#39;] = {}
+        allVehicles[&amp;#39;type&amp;#39;] = &amp;#39;Feature Collection&amp;#39;
+        allVehicles[&amp;#39;features&amp;#39;] = []
+
+ feed = parseDict(pburl)
+        id = 0
+        for value in feed[&amp;#39;entity&amp;#39;]:
+            obj = {}
+
+            # LIST OF SECTIONS
+            list = [&amp;quot;type&amp;quot;, &amp;quot;properties&amp;quot;, &amp;quot;geometry&amp;quot;, &amp;quot;data&amp;quot;]
+            for i in list: # CREATE SECTIONS
+                obj[i] = {}
+            obj[&amp;quot;type&amp;quot;] = &amp;quot;Feature&amp;quot;
+
+            # START OF DATA SECTION
+            tripId = value[&amp;quot;vehicle&amp;quot;][&amp;quot;trip&amp;quot;][&amp;quot;tripId&amp;quot;]
+            uni = obj[&amp;quot;data&amp;quot;]
+            uni[&amp;quot;vehicleId&amp;quot;] = value[&amp;quot;vehicle&amp;quot;][&amp;quot;vehicle&amp;quot;][&amp;quot;id&amp;quot;]
+            uni[&amp;quot;tripId&amp;quot;] = tripId
+            uni[&amp;quot;routeId&amp;quot;] = value[&amp;quot;vehicle&amp;quot;][&amp;quot;trip&amp;quot;][&amp;quot;routeId&amp;quot;]
+            uni[&amp;quot;coordinates&amp;quot;] = [value[&amp;quot;vehicle&amp;quot;][&amp;quot;position&amp;quot;][&amp;quot;longitude&amp;quot;], value[&amp;quot;vehicle&amp;quot;][&amp;quot;position&amp;quot;][&amp;quot;latitude&amp;quot;]]
+
+            # START OF GEOMETRY SECTION
+            obj[&amp;quot;geometry&amp;quot;][&amp;quot;type&amp;quot;] = &amp;quot;Point&amp;quot;
+            obj[&amp;quot;geometry&amp;quot;][&amp;quot;coordinates&amp;quot;] = uni[&amp;quot;coordinates&amp;quot;]
+
+
+            # START OF PROPERTIES SECTION
+            obj[&amp;quot;properties&amp;quot;] = {}
+            obj[&amp;quot;properties&amp;quot;][&amp;#39;id&amp;#39;] = id
+
+            # ADD INDIVIDUAL VEHICLES TO LIST
+            id += 1
+            allVehicles[&amp;#39;features&amp;#39;].append(obj)
+        allVehicles = addVehicleInfo(allVehicles)
+        allVehicles = addVehiclePopups(allVehicles)
+        return allVehicles&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Once you have this up and running you are going to save it locally and have it update at whatever rate you want the data to update with &lt;code class=&quot;language-text&quot;&gt;time.sleep(x)&lt;/code&gt; then host.&lt;/p&gt;
+&lt;h3&gt;SOURCES!!!&lt;/h3&gt;
+&lt;p&gt;FULL REPO —&gt; &lt;a href=&quot;https://github.com/AvidDabbler/GTFSRT-parsing&quot;&gt;https://github.com/AvidDabbler/GTFSRT-parsing&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Special thanks to Gavin Rehkemper @ &lt;a href=&quot;https://www.esri.com&quot;&gt;ESRI&lt;/a&gt;
+Twitter —&gt; &lt;a href=&quot;https://twitter.com/gavinrehkemper&quot;&gt;@GavinRehkemper&lt;/a&gt;
+Blog —&gt; &lt;a href=&quot;https://gavinr.com/protocol-buffers-protobuf-browser/&quot;&gt;https://gavinr.com/protocol-buffers-protobuf-browser/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;OpenMobilityData.org —&gt; &lt;a href=&quot;https://openmobilitydata.org/&quot;&gt;https://openmobilitydata.org/&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Ugh!!! I Broke My Pi]]></title><description><![CDATA[The Joys of Linux So you know how you will always have a project that you you will come back to and inevitably something will have broken…]]></description><link>https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190915-UGH-I-Broke-My-Pi/</guid><pubDate>Sat, 15 Feb 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;The Joys of Linux&lt;/h2&gt;
 &lt;p&gt;So you know how you will always have a project that you you will come back to and inevitably something will have broken? Yeah that’s pretty much my relationship with the Raspberry Pi. as a big believer in open source and the community I inevitably every six months say, “I should wipe my OS and move to Linux and become a real Nerd”. Then I always say to myself “Hey you should do a Pi project before you make the jump”. And then I spend 3 days trying to figure out what the hell I did to mess up this piece of hardware that has just been sitting on the shelf for 6 months. &lt;/p&gt;
 &lt;p&gt;So like I said I pick up this Pi about every 6 months and say that I am going to do something with it and eventually get bogged down at work or I start a new coding class because I don’t like free time and I have always been exceptional at picking up more projects then I have the ability to take breaths. Which ironically I think that is partially the reason why I started “this” project… my blog. It is supposed to be here as documentation, to keep me focused and help my organize my thoughts and goals in a productive manor rather than attempting to grasp at them as they float by in my head. &lt;/p&gt;
 &lt;h2&gt;Rundown&lt;/h2&gt;
@@ -234,23 +467,7 @@ This will open up the smbdgat.conf file to be edited via in command line&lt;/li&
 &lt;p&gt;&lt;a href=&quot;https://gdal.org/drivers/vector/filegdb.html&quot;&gt;https://gdal.org/drivers/vector/filegdb.html&lt;/a&gt; —&gt; gdal documentation&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/Toblerity/Fiona#windows&quot;&gt;https://github.com/Toblerity/Fiona#windows&lt;/a&gt; —&gt; setup fiona in windows&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://geoffboeing.com/2014/09/using-geopandas-windows/&quot;&gt;https://geoffboeing.com/2014/09/using-geopandas-windows/&lt;/a&gt; —&gt; Manual setup
-(What I had to use)&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Install OpenCV on Windows 10]]></title><description><![CDATA[download opencv
-create dir
-exe
-install visual studio code
-setup environmental variables run cmd as admin
-setx -m OPENCV_DIR “C:\Program…]]></description><link>https://blog.walterkjenkins.com/191013-opencv-install/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/191013-opencv-install/</guid><pubDate>Sat, 07 Sep 2019 23:00:00 GMT</pubDate><content:encoded>&lt;p&gt;download opencv
-create dir
-exe
-install visual studio code
-setup environmental variables&lt;/p&gt;
-&lt;p&gt;run cmd as admin
-setx -m OPENCV_DIR “C:\Program Files\CMake\OpenCV\Build\x64\vc14”&lt;/p&gt;
-&lt;p&gt;install links
-&lt;a href=&quot;https://my.visualstudio.com/Downloads?q=Visual%20Studio%202015%20with%20Update%203&quot;&gt;https://my.visualstudio.com/Downloads?q=Visual%20Studio%202015%20with%20Update%203&lt;/a&gt;
-&lt;a href=&quot;https://sourceforge.net/projects/opencvlibrary/files/opencv-win/&quot;&gt;https://sourceforge.net/projects/opencvlibrary/files/opencv-win/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;sources
-&lt;a href=&quot;https://docs.opencv.org/master/d3/d52/tutorial_windows_install.html&quot;&gt;https://docs.opencv.org/master/d3/d52/tutorial_windows_install.html&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
+(What I had to use)&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Hosting Static Sites on AWS]]></title><description><![CDATA[Intro As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when…]]></description><link>https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/190826-Hosting-a-Static-Site-on-s3/</guid><pubDate>Mon, 26 Aug 2019 23:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;As I expressed in my last post, there were a number of different options that AWS offers to get up and running on a budget when hosting a static website, but at the end of the day I will be going the S3 / Cloudfront way of hosting and routing. This post will go through the following steps in a logical way:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hosting your files through AWS S3.&lt;/li&gt;
