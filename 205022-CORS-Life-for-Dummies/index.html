@@ -8,21 +8,21 @@
 <li><a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">Node and npm</a></li>
 </ul>
 <p>The next thing that you are going to need to do is install heroku via npm. Run:</p>
-<p><code class="language-text">npm install heroku</code>. </p>
+<p><code class="language-text">npm install heroku</code>.</p>
 <h2>Deploy Cors-Anywhere</h2>
 <p>Go ahead and either fork and clone or just clone the <a href="https://github.com/Rob--W/cors-anywhere">cors-anywhere</a>. Once you have have the repo cloned on your machine you can deploy to Heroku in 2 steps. First open up your cli and go to the cloned directory then run:</p>
 <p><code class="language-text">git push heroku master</code></p>
-<p>If this is your first time working with Heroku you are going to need to sign up for a free account and then sign-in. </p>
-<p>If deployed correctly you should be able to go to the (Heroku)[https://heroku.com] dashboard and find your cors-anywhere application</p>
+<p>If this is your first time working with Heroku you are going to need to sign up for a free account and then sign-in.</p>
+<p>If deployed correctly you should be able to go to the <a href="https://heroku.com">Heroku</a> dashboard and find your cors-anywhere application</p>
 <h2>Configuring Cors-Anywhere</h2>
 <p>Once you have deployed and have it up and running you should be able to get to the options by going to the application > settings and then scroll down to <code class="language-text">config vars</code> and click <code class="language-text">reveal config vars</code>.</p>
-<p><img src="reveal%20config%20vars" alt="content\blog\205022-CORS-Life-for-Dummies\configure-vars.png"></p>
+<p><img src="content%5Cblog%5C205022-CORS-Life-for-Dummies%5Cconfigure-vars.png" alt="reveal config vars"></p>
 <p>Right now there are 2 different variables that I have set up for my project:</p>
 <ul>
-<li>(RATELIMIT)[https://github.com/Rob—W/cors-anywhere#demo-server] - This sets up the amount of default requests can be made it take 3 different variables. Number of requests, reset of ratelimit, and a space separated list of exempt sites.</li>
-<li>(WHITELIST)[https://github.com/Rob—W/cors-anywhere#demo-server] - This is the master list of URL’s that you are allowed to use this application. </li>
+<li><a href="https://github.com/Rob--W/cors-anywhere#demo-server">RATELIMIT</a> - This sets up the amount of default requests can be made it take 3 different variables. Number of requests, reset of ratelimit, and a space separated list of exempt sites.</li>
+<li><a href="https://github.com/Rob--W/cors-anywhere#demo-server">WHITELIST</a> - This is the master list of URL’s that you are allowed to use this application.</li>
 </ul>
-<p><img src="whitelist%20and%20ratelimit%20config" alt="content\blog\205022-CORS-Life-for-Dummies\whitelist-ratelimit.png"></p>
+<p><img src="config%20content%5Cblog%5C205022-CORS-Life-for-Dummies%5Cwhitelist-ratelimit.png" alt="whitelist and ratelimit"></p>
 <h2>LINKS!!!</h2>
 <ul>
 <li>cors-anywhere -> <a href="https://github.com/Rob--W/cors-anywhere">https://github.com/Rob—W/cors-anywhere</a></li>
