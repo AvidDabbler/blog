@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 26 May 2020 14:35:22 GMT</lastBuildDate><item><title><![CDATA[CORS Life for Dummies]]></title><description><![CDATA[Introduction So there are only so many times that you wish to come across the dreaded CORS error before you start thinking that there must…]]></description><link>https://blog.walterkjenkins.com/205022-CORS-Life-for-Dummies/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/205022-CORS-Life-for-Dummies/</guid><pubDate>Tue, 26 May 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[AvidDabbler Blog]]></title><description><![CDATA[Maping communities and measuring what matters]]></description><link>https://blog.walterkjenkins.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 26 May 2020 14:43:10 GMT</lastBuildDate><item><title><![CDATA[CORS Life for Dummies]]></title><description><![CDATA[Introduction So there are only so many times that you wish to come across the dreaded CORS error before you start thinking that there must…]]></description><link>https://blog.walterkjenkins.com/205022-CORS-Life-for-Dummies/</link><guid isPermaLink="false">https://blog.walterkjenkins.com/205022-CORS-Life-for-Dummies/</guid><pubDate>Tue, 26 May 2020 23:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;So there are only so many times that you wish to come across the dreaded CORS error before you start thinking that there must be a better way. You come across &lt;a href=&quot;https://github.com/Rob--W/cors-anywhere&quot;&gt;cors-anywhere&lt;/a&gt; and think, “This is it!!! But how do do I deploy? Why aren’t the steps just out there?”&lt;/p&gt;
 &lt;p&gt;Well now thanks to a fed up novice web developer. You too can solve these errors in a snap with your own private cors-anywhere deployment.&lt;/p&gt;
 &lt;h2&gt;Install Dependencies&lt;/h2&gt;
@@ -16,13 +16,13 @@
 &lt;p&gt;If deployed correctly you should be able to go to the (Heroku)[https://heroku.com] dashboard and find your cors-anywhere application&lt;/p&gt;
 &lt;h2&gt;Configuring Cors-Anywhere&lt;/h2&gt;
 &lt;p&gt;Once you have deployed and have it up and running you should be able to get to the options by going to the application &gt; settings and then scroll down to &lt;code class=&quot;language-text&quot;&gt;config vars&lt;/code&gt; and click &lt;code class=&quot;language-text&quot;&gt;reveal config vars&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;!(content\blog\205022-CORS-Life-for-Dummies\configure-vars.png)[reveal config vars]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;reveal%20config%20vars&quot; alt=&quot;content\blog\205022-CORS-Life-for-Dummies\configure-vars.png&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Right now there are 2 different variables that I have set up for my project:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;(RATELIMIT)[https://github.com/Rob—W/cors-anywhere#demo-server] - This sets up the amount of default requests can be made it take 3 different variables. Number of requests, reset of ratelimit, and a space separated list of exempt sites.&lt;/li&gt;
 &lt;li&gt;(WHITELIST)[https://github.com/Rob—W/cors-anywhere#demo-server] - This is the master list of URL’s that you are allowed to use this application. &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;!(content\blog\205022-CORS-Life-for-Dummies\whitelist-ratelimit.png)[whitelist and ratelimit config]&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;whitelist%20and%20ratelimit%20config&quot; alt=&quot;content\blog\205022-CORS-Life-for-Dummies\whitelist-ratelimit.png&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;LINKS!!!&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;cors-anywhere -&gt; &lt;a href=&quot;https://github.com/Rob--W/cors-anywhere&quot;&gt;https://github.com/Rob—W/cors-anywhere&lt;/a&gt;&lt;/li&gt;
